@@ -1,0 +1,64 @@
+OpenVPN conf정리
+
+port 1194
+# OpenVPN Server가 VPN 터널링 연결을 위해 이용하는 포트번호 설정
+
+prot tcp
+# TCP 프로토콜을 이용하여 터널링 구성 설정
+
+dev tun
+# tun 이라는 가상 디바이스를 생성하여 VPN을 위한 가상 네트워크를 구성하는 방식
+
+ca /etc/openvpn/ca.crt
+# ca 인증서의 경로 지정
+
+cert /etc/openvpn/cloud.crt
+# OpenVPN Server 인증서 경로 지정
+
+key /etc/openvpn/cloud.key
+# OpenVPN Server 개인키 경로 지정
+
+dh /etc/openvpn/dh.pem
+# Diffie-Hellman 파라미터 경로 지정
+
+topology subnet
+# ip와 subnet으로 클라이언트 주소를 addressing
+
+server 10.8.0.0 255.255.255.0
+# VPN 터널링을 위한 가상 디바이스 "tun"에 할당되는 가상 IP 대역
+
+ifconfig-pool-persist ipp.txt
+# ipp.txt 파일에 server와 연결된 Client 별 가상 IP 주소 정보 저장
+
+push "route 172.27.0.0 255.255.0.0"
+# OpenVPN Client가 Server와 연계된 네트워크 대역 추가
+ex ) VPN Server : 172.27.0.1 , Client 1 : 172.27.0.2
+
+client-to-client
+# OpenVPN Client들끼리 OpenVPN Server를 통해 VPN 터널링 통신 가능
+
+keepalive 10 120
+# 매 10초마다 Ping을 보내 120초동안 수신이 없으면 연결이 끊어진것으로 간주
+
+cipher AES-256-GCM
+# 패킷 암호화 방식 지정 ( GCM 방식으로 메시지를 암호화 하였음. )
+
+comp-lzo
+# lzo 패키지를 통해 VPN 접속시 패킷 압축 설정
+
+persist-key
+# 재시작 후에도 key 값 유지
+
+persist-tun
+# 재시작 후에도 가상 디바이스 tun 유지
+
+status /var/log/openvpn/openvpn-status.log
+log-append /var/log/openvpn/openvpn.log
+# Openvpn 서버와 통신하는 로그 확인
+
+verb 4
+# 로깅수준 ( 일반적으로 4 사용 )
+
+explicit-exit-notify 1
+# UDP 는 1 , TCP는 0 이나 사용X
+
