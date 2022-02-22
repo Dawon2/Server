@@ -10,8 +10,11 @@ ex) 내 컴퓨터에서 VPN 서버를 통해서 KT Cloud의 사설 VM 으로 접
 # yum -y install openvpn openssl easy-rsa
 
 # cp /usr/share/doc/openvpn-2.4.11/sample/sample-config-files/server.conf /etc/openvpn
+# mkdir easy-rsa
 # cp -R /usr/share/easy-rsa/3.0.8/* /etc/openvpn/easy-rsa/
+# cd /etc/openvpn/easy-rsa/
 # cp openssl-easyrsa.cnf openssl.cnf
+# mkdir /var/log/openvpn
 
 # cd /etc/openvpn
 # vi server.conf
@@ -26,10 +29,10 @@ dev tun
 
 ;dev-node MyTap
 
-ca /etc/openvpn/ca.crt
-cert /etc/openvpn/cloud.crt
-key /etc/openvpn/cloud.key  # This file should be kept secret
-dh /etc/openvpn/dh.pem
+ca /etc/openvpn/easy-rsa/keys/ca.crt
+cert /etc/openvpn/easy-rsa/keys/cloud.crt
+key /etc/openvpn/easy-rsa/keys/cloud.key  # This file should be kept secret
+dh /etc/openvpn/easy-rsa/keys/dh.pem
 
 topology subnet
 
@@ -119,15 +122,15 @@ export KEY_CN="test.example.co.kr"
 ( PKI 초기화 및 디렉토리 생성 )
 
 # ./easyrsa build-ca nopass
-( CA 인증서와 키 생성 )
+( CA 인증서 및 키 생성 - ca.crt, ca.key)
 -> 패스워드 설정 , 서버 이름 설정 (cloud)
 
 # ./easyrsa gen-req cloud nopass
-( OpenVPN에서 사용할 인증서 생성 )
+( OpenVPN에서 사용할 키 생성 - server.req, server.key )
 -> 서버 이름 설정 (cloud)
 
 # ./easyrsa sign-req server cloud
-( request 타입과 서버이름 설정 후 키 생성 )
+( request 타입과 서버이름 설정 후 인증서 생성 - server.crt)
 
 # ./easyrsa gen-dh
 ( diffie-hellman 키 교환 파일 생성 )
@@ -138,6 +141,7 @@ export KEY_CN="test.example.co.kr"
 # cp /etc/openvpn/server/easy-rsa/pki/private/cloud.key /etc/openvpn/easy-rsa/keys/
 # cp /etc/openvpn/server/easy-rsa/pki/issued/cloud.crt /etc/openvpn/easy-rsa/keys/
 # cp /etc/openvpn/server/easy-rsa/pki/dh.pem  /etc/openvpn/easy-rsa/keys/
+( 4개의 키 및 인증서 파일을 한곳으로 옮겨놓기 )
 
 # vi /etc/sysctl.conf
 --------------------------------------------------------
@@ -156,7 +160,7 @@ net.ipv4.ip_forward = 1
 # cp /etc/openvpn/server/easy-rsa/pki/private/dw.key
 
 2.
-SFTP 프로그램을 이용하여 Client(window)에 C:\Program Files\OpenVPN안에 키 폴더 생성 후
+SFTP 프로그램을 이용하여 Client(window)에 C:\Program Files\OpenVPN안에 keys 폴더 생성 후
 ca.crt, dw.crt, dw.key 등 파일 이동
 
 3.
@@ -185,11 +189,11 @@ persist-tun
 
 float
 
-ca "C:\\Program Files\\OpenVPN\\Newkey\\ca.crt"
+ca "C:\\Program Files\\OpenVPN\\keys\\ca.crt"
 
-cert "C:\\Program Files\\OpenVPN\\Newkey\\dw.crt"
+cert "C:\\Program Files\\OpenVPN\\keys\\dw.crt"
 
-key "C:\\Program Files\\OpenVPN\\Newkey\\dw.key"
+key "C:\\Program Files\\OpenVPN\\keys\\dw.key"
 --------------------------------------------------------
 
 # systemctl start openvpn@server
@@ -211,3 +215,12 @@ VPN 서버에서 ip a 명령어로 장비가 잘 올라갔는지 IP 맞는지 �
 
 
 ★ 정상적으로 작동된다면 OpenVPN 서버 구축 완료 ! ★
+
+- 참조 -
+Server
+: https://hiteit.tistory.com/5
+  https://indienote.tistory.com/142
+
+config
+: http://www.t8.co.kr/bbs/board.php?bo_table=networking&wr_id=2
+  https://hook.tistory.com/entry/Windows-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%97%90-OpenVPN-Client-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
