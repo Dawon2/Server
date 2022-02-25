@@ -6,6 +6,19 @@ Zabbix Agent - Window : 172.17.124.198
 - 구축 목적 -
 : Agent서버의 네트워크 하드웨어를 감시, 추적하여 장애발생을 신속하게 알리기 위한 '모니터링' 환경 구축
 
+< Zabbix의 동작 방식 >
+1. Passive 방식 ( Default )
+: Server -> Agent 로 데이터를 요청하여 응답받는 방식 ( 수집 )
+- 목적지가 Agent 이므로 10050 포트 사용
+- 수동적 Agent ( 데이터를 달라하면 줌 )
+
+2. Active 방식
+: Agent -> Server 로 데이터를 전달해주는 방식 ( 전송 )
+- 목적지가 Server 이므로 10051 포트 사용
+- Agent 설정에서 ServerActive의 IP를 지정하여 데이터를 전송하는 방식
+- 능동적 Agent ( 알아서 데이터를 보냄 )
+
+
 - Server 구축 -
 # hostnamectl set-hostname server
 
@@ -23,7 +36,7 @@ SELINUX=disabled
 # yum clean all
 # yum -y install zabbix-server-mysql zabbix-web-mysql zabbix-apache-conf zabbix-agent
 
-# yum install centos-release-scl
+# yum -y install centos-release-scl
 # vi /etc/yum.repos.d/zabbix.repo
 ------------------------------
 [zabbix-frontend]
@@ -31,7 +44,7 @@ SELINUX=disabled
 enabled=1
 ...
 ------------------------------
-# yum install zabbix-web-mysql-scl zabbix-apache-conf-scl
+# yum -y install zabbix-web-mysql-scl zabbix-apache-conf-scl
 ( 프론트엔드 설정 )
 
 # systemctl start httpd mariadb
@@ -61,8 +74,13 @@ enabled=1
 php_value[date.timezone] = Asia/Seoul
 ( 주석 해제 및 아시아 서울로 변경 )
 
-# systemctl start httpd zabbix-server zabbix-agent rh-php72-php-fpm
-# systemctl enable httpd zabbix-server zabbix-agent rh-php72-php-fpm
+# systemctl start zabbix-server zabbix-agent rh-php72-php-fpm
+# systemctl enable zabbix-server zabbix-agent rh-php72-php-fpm
+
+
+*** 오류 발생시 vi /var/log/zabbix/zabbix_server.log 에서 zabbix log 확인 ***
+
+* 재부팅 한번 해주어야 server 포트가 정상적으로 올라옴
 
 - TEST -
 1.
@@ -101,7 +119,7 @@ tcp6       0      0 :::10051                :::*                    LISTEN      
    User : zabbix
    password : zabbix
 
-4. Zabbix server name : Zabbix monitoring
+4. Zabbix server name : Zabbix monitoring오후 6:04 2022-02-15
 
 5. 초기 로그인 값
 Username : Admin
