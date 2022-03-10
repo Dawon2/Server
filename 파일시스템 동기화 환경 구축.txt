@@ -83,6 +83,20 @@ sync {
 # ssh-copy-id 175.106.99.250
 ( 생성한 키 복사해서 Backup 서버로 전달 )
 
+  ▶ id_rsa: 개인키(private key)이며 접속하고자 하는 클라이언트(client)가 가지고 있는다.
+
+  ▶ id_rsa.pub: 공개키(public key)이며 서버(server)가 가지고 있는다.
+
+  ▶ authorized_keys: 서버가 접속을 허용할 공개키(public key) 리스트다.
+
+★ 키 접속 구조 
+1. 먼저 접속할 Master 서버에서 개인키(id_rsa)와 공개키(id_rsa.pub)를 생성한다.
+2. 접속을 허용할 Backup 서버에서 공개키 리스트(authorized_keys)를 생성하고 Master서버의 공개키(id_rsa.pub) 내용을 넣어준다.
+3. 이제 Master 서버에서 개인키(id_rsa)를 통하여 Backup서버에 접속이 가능하다.
+
+* Master 서버에서 개인키로 데이터를 암호화하고 Backup 서버에서 공개키로 복호화
+
+- 디렉토리 및 파일 권한 변경! 
 ** /root 디렉토리 권한 : 700
    /.ssh/authorized_keys 권한 : 600, 644
    /.ssh 권한 : 700
