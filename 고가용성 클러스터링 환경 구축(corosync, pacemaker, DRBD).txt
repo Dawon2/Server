@@ -1,0 +1,247 @@
+- 구축 목적 -
+: 서버 및 서비스를 클러스터로 묶어서 관리하고 , 그 환경을 고가용성(HA) 환경으로 구축하여 다운타임을 최소화 하기 위하여
+
+★
+corosync : 클러스터 내의 "노드 간" 통신 및 동기화 작업 담당
+pacemaker : corosync의 기능을 이용하여 "클러스터" 리소스 제어 및 관리 담당 ( 상태에 따른 순차적 노드 서비스 시작 및 정지 )
+DRBD : Failover에 따른 파일 시스템 동기화 ( 디스크 미러링 )
+pcsd : 클러스터 설정을 간편하게 하기 위해 쓰는 툴
+★
+
+- corosync 및 pacemaker 환경 구축 -
+
+# cat /etc/hosts
+172.16.1.6      dw-test
+172.16.1.7      dw-test2
+172.16.1.8      dw-vip
+( 양쪽 노드에, 각 노드의 ip 주소를 등록해준다 )
+
+# yum -y install pacemaker corosync pcs psmisc policycoreutils-python
+
+# systemctl start pcsd
+# systemctl enable pcsd
+
+# passwd hacluster
+( 양쪽 노드에서, 자동으로 생성된 계정을 양쪽 동일하게 비밀번호를 설정한다. )
+dw-test : root
+dw-test2 : root
+
+# pcs cluster auth dw-test dw-test2
+( 한쪽 노드에서, hacluster 사용자 인증 진행 )
+
+# pcs cluster setup --name dw_cluster dw-test dw-test2
+( 한쪽 노드에서, 클러스터를 만들고 두 대의 노드를 동기화시킨다 - corosync 구성 )
+
+# pcs cluster start --all
+( 클러스터 실행 )
+
+# corosync-cfgtool -s
+( 클러스터 통신 확인 )
+
+# corosync-cmapctl | egrep -i members
+# pcs status corosync
+( 멤버쉽과 쿼럼 확인 )
+
+# pcs status
+( 클러스터 전체 정보 확인 )
+
+# pcs property set stonith-enabled=false
+# crm_verify -L -V
+( 클러스터 설정 변경 전 유효성 확인 - stonith 설정 비활성화로 오류 제거 )
+
+# pcs resource create VirtualIP ocf:heartbeat:IPaddr2 ip=172.16.1.8 cidr_netmask=24 op monitor interval=30s
+( 가상 아이피 리소스 추가 - 노드가 다운되면 다른 노드로 이동함 )
+
+# pcs status
+VirtualIP	(ocf::heartbeat:IPaddr2):	Started dw-test -> 리소스 추가 확인
+
+# ip a
+( VIP 및 설정된 IP 주소 들어갔는지 확인 )
+
+# pcs cluster stop dw-test
+# pcs status
+( 1번 테스트 서버 정지 후 2번으로 정상적으로 넘어가는지 확인 )
+ VirtualIP	(ocf::heartbeat:IPaddr2):	Started dw-test2
+
+# yum -y install httpd wget
+( 양쪽 노드에, 설치 )
+
+# vi /etc/httpd/conf.d/status.conf
+--------------------------------------
+ <Location /server-status>
+    SetHandler server-status
+    Require local
+ </Location>
+--------------------------------------
+( 양쪽 노드에, 생성 및 해당 내용 추가 )
+
+# pcs resource create WebService ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://localhost/server-status" op monitor interval=1min
+# pcs resource op defaults timeout=60s
+# pcs resource op defaults
+( 웹서비스 리소스 등록 및 설정 )
+
+# pcs status
+( 웹서비스 리소스 정상적으로 올라왔는지 확인 )
+
+# pcs constraint colocation add WebService with VirtualIP INFINITY
+( 웹서비스와 VIP의 리소스를 같은 노드에서 실행할 수 있도록 묶어줌 )
+
+# pcs constraint order VirtualIP then WebService
+( VIP가 먼저 실행된 후에 웹서비스를 실행하도록 설정 추가 )
+
+# pcs constraint location WebService prefers dw-test2=INFINITY
+( 리소스를 2번 노드로 강제이동이 필요할 경우에 설정 )
+
+# pcs constraint
+( 추가된 constraint 내용 확인 )
+
+# pcs constraint --full
+Disabled on: wolf2 (score:-INFINITY) (id:location-WebService-wolf2--INFINITY)
+# pcs constraint remove location-WebService-wolf2--INFINITY
+( 리소스 삭제가 필요할땐 --full로 id를 확인 후에 remove [id] 로 삭제 )
+
+
+- DRBD 환경 구축 -
+
+# rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+# rpm -ivh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+# yum install drbd90-utils
+# yum install kmod-drbd90
+( 양쪽 모두 설치 , 레포지토리 및 drbd 설치 )
+
+# modprobe drbd
+# lsmod | grep drbd
+( 양쪽 노드 모두, 커널에 drbd 모듈 로딩 )
+
+** 작업 전 먼저 두개의 서버에 각각 디스크 하나씩 추가 진행!!
+
+# parted -l
+( 새로운 디스크 생성 확인 )
+
+# vi /etc/drbd.d/cluster_disk.res
+------------------------------------------
+resource disk_dw {
+        on dw-test {
+                device /dev/drbd0;
+                disk /dev/xvdb;
+                address 172.16.1.6:7789;
+                meta-disk internal;
+        }
+        on dw-test2 {
+                device /dev/drbd0;
+                disk /dev/xvdb;
+                address 172.16.1.7:7789;
+                meta-disk internal;
+        }
+}
+------------------------------------------
+( 양쪽 노드에, 해당 설정파일 생성 및 내용 확인 후 추가 )
+
+# vi /etc/drbd.d/global_common.conf
+------------------------------------------
+net {
+		# protocol timeout max-epoch-size max-buffers
+		# connect-int ping-int sndbuf-size rcvbuf-size ko-count
+		# allow-two-primaries cram-hmac-alg shared-secret after-sb-0pri
+		# after-sb-1pri after-sb-2pri always-asbp rr-conflict
+		# ping-timeout data-integrity-alg tcp-cork on-congestion
+		# congestion-fill congestion-extents csums-alg verify-alg
+		# use-rle
+		protocol C;
+	}
+------------------------------------------
+( net 설정 맨 아래에 protocol C; 추가 )
+
+# drbdadm create-md disk_dw
+( 메타디스크 생성 )
+
+# systemctl start drbd
+# systemctl enable drbd
+
+# drbdadm status
+( 각 서버의 drbd 상태 확인 - Primary 와 Secondary로 나뉨 )
+
+disk_dw role:Primary
+  disk:UpToDate
+  dw-test2 role:Secondary
+    peer-disk:UpToDate
+( 1번 서버 )
+
+# drbdadm status
+disk_dw role:Secondary
+  disk:UpToDate
+  dw-test role:Primary
+    peer-disk:UpToDate
+( 2번 서버 )
+
+# drbdadm primary disk_dw
+( Primary를 1번서버로 바꾸어주는 명령어 )
+
+# mkfs -t xfs /dev/drbd0
+( 파일시스템 생성 )
+
+# mount /dev/drbd0 /mnt
+( 원하는 위치에 마운트 )
+# umount /mnt
+
+
+# pcs cluster cib drbd_cfg
+( drbd 리소스를 클러스터에 통합 - cib로부터 raw xml 파일을 생성 )
+
+# pcs -f drbd_cfg resource create DrbdData ocf:linbit:drbd drbd_resource=disk_dw op monitor interval=60s
+( DRBD data 리소스 생성 )
+
+# pcs -f drbd_cfg resource master DrbdDataClone DrbdData master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
+( DRBD clone 리소스 생성 )
+
+# pcs cluster cib-push drbd_cfg
+( 작성한 cib를 라이브 cib로 push )
+
+
+# pcs cluster cib fs_cfg
+( DRBD 파일시스템 리소스 생성 )
+
+# pcs  -f fs_cfg resource create DrbdFS Filesystem device="/dev/drbd0" directory="/var/www/html" fstype="xfs"
+( DRBD의 마운트포인트를 /var/www/html로 설정 )
+
+# pcs  -f fs_cfg constraint colocation add DrbdFS with DrbdDataClone INFINITY with-rsc-role=Master
+( DrbdFS와 DrbdClone 리소스를 같은 노드에서 실행할 수 있도록 묶어줌 )
+
+# pcs  -f fs_cfg constraint order promote DrbdDataClone then start DrbdFS
+( DrbdFS 보다 Clone이 먼저 실행되도록 설정 )
+
+# pcs -f fs_cfg constraint colocation add WebService with DrbdFS INFINITY
+( DrbdFS와 웹서비스 리소스를 같은 노드에서 실행할 수 있도록 묶어줌 )
+
+# pcs cluster cib-push fs_cfg
+( 작성한 cib를 push )
+
+# pcs constraint order DrbdFS then WebService
+( 웹서비스 보다 DrbdFS 가 먼저 실행되도록 설정 )
+
+- TEST -
+1.해당 리소스 설정 내용들이 정상적으로 들어갔는지 확인
+# pcs constraint
+
+2.
+설정내용 모두 잘 들어갔는지 확인
+# pcs status
+
+3. 
+Failover 정상적으로 이루어지는지 확인
+# pcs cluster stop dw-test
+# pcs cluster start dw-test
+
+# pcs cluster stop dw-test2
+# pcs cluster start dw-test2
+- 양쪽 노드에서 pcs status를 확인해가며 정상적으로 작동하는지 확인
+
+
+★ 정상적으로 작동된다면 고가용성 클러스터링 환경 구축( corosync, pacemaker, DRBD ) 완료 ! ★
+
+
+- 참조 -
+https://blog.boxcorea.com/wp/archives/1784
+https://www.nextree.co.kr/p12211/
+https://it-sunny-333.tistory.com/135
+
