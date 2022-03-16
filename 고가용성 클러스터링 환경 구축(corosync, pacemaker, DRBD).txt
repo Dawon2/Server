@@ -8,6 +8,8 @@ DRBD : Failover에 따른 파일 시스템 동기화 ( 디스크 미러링 )
 pcsd : 클러스터 설정을 간편하게 하기 위해 쓰는 툴
 ★
 
+
+★웹 이중화 버전★
 - corosync 및 pacemaker 환경 구축 -
 
 # cat /etc/hosts
@@ -101,7 +103,7 @@ Disabled on: wolf2 (score:-INFINITY) (id:location-WebService-wolf2--INFINITY)
 ( 리소스 삭제가 필요할땐 --full로 id를 확인 후에 remove [id] 로 삭제 )
 
 
-- DRBD 환경 구축 -
+- DRBD 환경 구축  -
 
 # rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 # rpm -ivh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
@@ -219,6 +221,161 @@ disk_dw role:Secondary
 # pcs constraint order DrbdFS then WebService
 ( 웹서비스 보다 DrbdFS 가 먼저 실행되도록 설정 )
 
+
+★DB 이중화 버전★
+* 구축 전 디스크 추가 먼저 진행
+
+# vi /etc/hosts
+------------------------
+172.16.1.8      dw1
+172.16.1.9      dw2
+------------------------
+( 양쪽 노드에서 진행, 맨 밑줄에 추가 )
+
+# yum install -y pacemaker pcs fence-agents-all psmisc policycoreutils-python
+# rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+# yum -y install https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+# yum -y install mariadb-server
+# yum -y install drbd84-utils kmod-drbd84
+( 양쪽 노드에서 진행, 설치 진행, drbd90 버전도 상관없음 )
+
+# modprobe drbd
+# lsmod | grep drbd
+( 양쪽 노드에서 진행, drbd 모듈 추가 및 확인 )
+
+# drbdadm create-md disk_dw
+# systemctl start drbd
+# drbdadm status
+( 양쪽 노드에서 진행, 정상적으로 작동됬는지 테스트 )
+
+# drbdadm primary disk_dw
+( 마스터 노드에서 진행, 마스터노드를 primary로 변경 )
+
+# mkfs.xfs /dev/drbd0
+( drbd에 파일시스템 생성 )
+
+# mkdir /data
+( 양쪽 노드에서 진행 )
+
+# mount /dev/drbd0 /data
+( 마스터 노드에서 진행, 마운트 할 디렉토리 생성 후 drbd 마운트 )
+
+
+# vi /etc/my.cnf
+----------------------------------------------------------------------------
+[mysqld]
+datadir=/data/mysql
+socket=/data/mysql/mysql.sock
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+# Settings user and group are ignored when systemd is used.
+# If you need to run mysqld under a different user or group,
+# customize your systemd unit file for mariadb according to the
+# instructions in http://fedoraproject.org/wiki/Systemd
+
+[mysqld_safe]
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/var/run/mariadb/mariadb.pid
+
+#
+# include all files from the config directory
+#
+!includedir /etc/my.cnf.d
+----------------------------------------------------------------------------
+( 마스터 노드에서 진행 )
+( datadir 부분과 socket 부분을 /var/lib -> /data 로 변경 )
+
+
+# vi /etc/drbd.d/clusterdata.res
+-----------------------------------------
+resource disk_dw {
+        on dw1 {
+                device /dev/drbd0;
+                disk /dev/xvdb;
+                address 172.16.1.8:7789;
+                meta-disk internal;
+        }
+        on dw2 {
+                device /dev/drbd0;
+                disk /dev/xvdb;
+                address 172.16.1.9:7789;
+                meta-disk internal;
+        }
+}
+-----------------------------------------
+( 양쪽 노드에서 진행 )
+( resource [ 생성한 Drbd ] , on [ hostname ] , device [ drbd 장치 경로 ] , disk [ 새로 생성한 디스크 ] , address [ 해당 서버 주소 ] )
+
+
+# vi /etc/drbd.d/global_common.conf
+------------------------------------------
+net {
+		# protocol timeout max-epoch-size max-buffers
+		# connect-int ping-int sndbuf-size rcvbuf-size ko-count
+		# allow-two-primaries cram-hmac-alg shared-secret after-sb-0pri
+		# after-sb-1pri after-sb-2pri always-asbp rr-conflict
+		# ping-timeout data-integrity-alg tcp-cork on-congestion
+		# congestion-fill congestion-extents csums-alg verify-alg
+		# use-rle
+		protocol C;
+	}
+------------------------------------------
+( 양쪽 노드에서 진행 )
+( net 설정 맨 아래에 protocol C; 추가 )
+
+
+
+# cp -rfp /var/lib/mysql /data/mysql
+# mv /var/lib/mysql /var/lib/mysql.back
+# ln -sf /data/mysql /var/lib/mysql
+( 마스터 노드에서 진행, mysql 디렉토리 복사, 백업 및 링크 설정 )
+
+# mysql_install_db --datadir=/data/mysql
+( 마스터 노드에서 진행, DB 설정 진행 )
+
+# systemctl start mariadb
+# mysqladmin -u root password root
+( 마스터 노드에서 진행, DB 패스워드 설정 )
+
+# mysql -u root -p
+( 마스터 노드에서 진행, 패스워드 설정 및 정상 접속 확인 )
+
+# systemctl stop mariadb
+# systemctl disable mariadb
+( 양쪽 노드에서 진행, 마리아 DB 종료 )
+
+# systemctl enable drbd
+# systemctl start drbd
+# systemctl start pcsd
+# systemctl enable pcsd
+( 양쪽 노드에서 진행 )
+
+# passwd hacluster
+( 양쪽 노드에서 진행, 암호 양쪽 동일하게 설정 )
+
+# pcs cluster auth dw1 dw2
+( 마스터 노드에서 진행, Username : hacluster 로 인증 진행 )
+
+# pcs cluster setup --name dw_cluster dw1 dw2
+( 마스터 노드에서 진행,  클러스터 생성 )
+
+# pcs cluster start --all
+# pcs cluster enable --all
+# pcs property set stonith-enabled=false  
+( 마스터 노드에서 진행, 클러스터 시작 및 stonith 비활성화 )
+
+# pcs cluster cib drbd_cfg
+# pcs -f drbd_cfg resource create Data ocf:linbit:drbd drbd_resource=disk_dw
+# pcs -f drbd_cfg resource master DataSync Data master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
+# pcs -f drbd_cfg resource create storage Filesystem device="/dev/drbd0" directory="/data" fstype="xfs" 
+# pcs -f drbd_cfg resource create DBmaria ocf:heartbeat:mysql binary="/usr/bin/mysqld_safe" socket="/var/lib/mysql/mysql.sock" config="/etc/my.cnf" datadir="/data/mysql" op start timeout=60s op stop timeout=60s op monitor interval=20s timeout=30s
+# pcs -f drbd_cfg resource group add p-group storage DBmaria
+# pcs -f drbd_cfg constraint colocation add p-group DataSync INFINITY with-rsc-role=Master
+# pcs -f drbd_cfg constraint order promote DataSync then start p-group
+# pcs cluster cib-push drbd_cfg
+( cib로 묶어서 리소스 설정 진행 )
+
+
 - TEST -
 1.해당 리소스 설정 내용들이 정상적으로 들어갔는지 확인
 # pcs constraint
@@ -234,7 +391,20 @@ Failover 정상적으로 이루어지는지 확인
 
 # pcs cluster stop dw-test2
 # pcs cluster start dw-test2
-- 양쪽 노드에서 pcs status를 확인해가며 정상적으로 작동하는지 확인
+- 양쪽 노드에서 pcs status를 확인해가며 정상적으로 작동하는지 확인 및 마운트 내용, /data 파일 내용 등 확인
+
+4.  해당하는 서비스 종료 시 자동으로 올라오는지 확인
+- kill -9 [ 서비스 PID ]
+- netstat -plunt
+
+
+* fail count 리셋 : pcs resource failcount reset
+
+* drbd StandAlone 발생 시
+[Slave]
+: drbdadm -- --discard-my-data connect all
+[Master]
+: drbdadm connect all
 
 
 ★ 정상적으로 작동된다면 고가용성 클러스터링 환경 구축( corosync, pacemaker, DRBD ) 완료 ! ★
@@ -244,4 +414,5 @@ Failover 정상적으로 이루어지는지 확인
 https://blog.boxcorea.com/wp/archives/1784
 https://www.nextree.co.kr/p12211/
 https://it-sunny-333.tistory.com/135
+https://open-infra.tistory.com/7
 
