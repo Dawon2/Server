@@ -80,3 +80,4 @@ Message : CPU usage is over 80% !! ( 메일에 포함하고싶은 메세지 입�
 
 - 참조 -
 : https://ksr930.tistory.com/177
+  https://danawalab.github.io/common/2021/01/26/Common-Grafana-Alert.html
