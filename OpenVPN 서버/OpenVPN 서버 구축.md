@@ -171,6 +171,7 @@ net.ipv4.ip_forward = 1
 ### Client 연결
 
 **1. 키 생성**
+```
 # ./easyrsa gen-req dw nopass
 # ./easyrsa sign-req client dw
 
