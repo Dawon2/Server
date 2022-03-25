@@ -16,6 +16,7 @@
 
 [link]: https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md
 
+***
 ### 서버 설정
 ```
 # yum -y install wget
@@ -32,7 +33,7 @@
 # systemctl restart grafana-server
 
 ```
-
+***
 ### Grafana WEB 설정
 **-> 아래부터는 Grafana 홈페이지 접속 후 진행**
 
