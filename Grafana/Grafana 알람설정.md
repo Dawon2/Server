@@ -62,7 +62,7 @@
      - Optional Email settings : single email 체크
      - Notification settings : Default , Include image 체크
 
-**-> Test 후 메일 잘 오는지 확인 후 Save**
+*-> Test 후 메일 잘 오는지 확인 후 Save*
 
 **Alert 생성 및 연결**
 1. 대시보드로 들어가서 Panel 클릭 후 Edit ( Variables가 포함된 Panel은 Alert 설정 불가 ! )
