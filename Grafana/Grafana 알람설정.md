@@ -51,7 +51,7 @@
 ------------------------------------------------------------------
 ```
 
-**> Grafana 홈페이지 접속 후 진행**
+**> 아래는 Grafana 홈페이지 접속 후 진행**
 
 ### Alert channel 생성
 - Alerting -> Notification channels -> New Channel
