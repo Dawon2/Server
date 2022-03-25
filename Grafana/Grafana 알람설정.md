@@ -54,7 +54,7 @@
 ### Grafana WEB 설정
 **> 아래는 Grafana 홈페이지 접속 후 진행**
 
-### Alert channel 생성
+**- Alert channel 생성**
 - Alerting -> Notification channels -> New Channel
      - Name : Gmail Test
      - Type : Email
@@ -64,7 +64,7 @@
 
 **-> Test 후 메일 잘 오는지 확인 후 Save**
 
-### Alert 생성 및 연결
+**- Alert 생성 및 연결**
 1. 대시보드로 들어가서 Panel 클릭 후 Edit ( Variables가 포함된 Panel은 Alert 설정 불가 ! )
 2. Alert 클릭
 - Name : Test alert
