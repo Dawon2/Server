@@ -8,7 +8,7 @@
 **먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 참고 )**
 [Zabbix][id]
 
-[id]: URL "https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md"
+[id]: URL "Go google"
 
 [zabbix-server][googlelink]
 
