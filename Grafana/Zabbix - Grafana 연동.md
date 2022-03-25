@@ -47,7 +47,7 @@
 - 데이터소스 추가
   - Configuration(설정) - Data Sources - Add data source - zabbix
     - HTTP
-      URL : http://172.17.120.241/zabbix/api_jsonrpc.php
+      URL : ```http://172.17.120.241/zabbix/api_jsonrpc.php```
 
     - Zabbix API details
       Username : Admin
