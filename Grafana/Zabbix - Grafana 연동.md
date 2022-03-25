@@ -3,6 +3,9 @@
 ## 구축 목적
 : 기존 Zabbix 보다 더 가시성 높은 환경으로 모니터링 하기 위하여
 
+### Port : 3000
+### 서버 IP : 172.17.120.241
+
 ## Grafana 연동
 
 **먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 아래 링크 참고 )**
