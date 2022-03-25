@@ -33,6 +33,7 @@
 
 ```
 
+### Grafana WEB 설정
 **-> 아래부터는 Grafana 홈페이지 접속 후 진행**
 
 ```http://172.17.120.241:3000/```
@@ -42,7 +43,7 @@
 : admin / admin
 
 
-1. 자빅스 연동
+**1. 자빅스 연동**
 - 플러그인
   - Configuration(설정) - Plugins - Zabbix 검색 ( 아까 설치한 플러그인 패키지 ) - 클릭 후 Enable
 
@@ -57,7 +58,7 @@
       ( Zabbix 홈페이지 접속 초기 ID / PW )
     - Save & test
 
-2. Grafana 대시보드 추가
+**2. Grafana 대시보드 추가**
 https://grafana.com/grafana/dashboards/?search=zabbix
 ( 그라파나 대시보드 사이트에서 원하는 대시보드 url 복사 ! )
 
