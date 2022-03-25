@@ -1,10 +1,13 @@
-- 구축 목적 -
+# Zabbix - Grafana 연동
+
+## 구축 목적
 : 기존 Zabbix 보다 더 가시성 높은 환경으로 모니터링 하기 위하여
 
-- Grafana 연동 -
+## Grafana 연동
 
-* 먼저 Zabbix Server 구축 ( Zabbix Server 구축 참고 )
+**먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 참고 )**
 
+```
 # yum -y install wget
 # wget https://dl.grafana.com/enterprise/release/grafana-enterprise-8.4.1-1.x86_64.rpm
 ( Grafana 패키지 설치 - 버전은 홈페이지 참고해서 설치 )
