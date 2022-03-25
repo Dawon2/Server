@@ -34,9 +34,9 @@ Forwarding을 설정하여 해당 네임 서버가 직접 도메인 정보를 �
 
 # systemctl start named
 # systemctl enable named
-
 ```
 ***
+
 ## TEST
 
 ### 1. DNS 포트 잘 올라와있는지 확인 
