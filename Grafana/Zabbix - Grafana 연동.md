@@ -66,7 +66,7 @@ https://grafana.com/grafana/dashboards/?search=zabbix
 - 대시보드 생성
   - Create(생성) - Import - 복사한 대시보드 url 입력 - Load - Data source Zabbix 선택 - Import
 
-  -> 대시보드 추가 완료!!
+  *-> 대시보드 추가 완료!!*
 ***
 ### 추가
 - 대시보드에 전부 No data가 뜨면 mariadb 확인 및 재시작 , 그라파나 설정 확인
