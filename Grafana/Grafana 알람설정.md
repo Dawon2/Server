@@ -78,7 +78,7 @@
 - Send to : Gmail Test ( 생성한 Alert Channel )
 - Message : CPU usage is over 80% !! ( 메일에 포함하고싶은 메세지 입력 )
 
-**-> Test rule 클릭 후 정상적으로 메일오는지 확인**
+*-> Test rule 클릭 후 정상적으로 메일오는지 확인*
 
 ***
 **★ 정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★**
