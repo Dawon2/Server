@@ -7,9 +7,9 @@
 
 **먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 참고 )**
 
-[Zabbix 서버 구축!][link]
+링크 : [Zabbix 서버 구축!][link]
 
-[link]: https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md "Go google"
+[link]: https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md
 
 ```
 # yum -y install wget
