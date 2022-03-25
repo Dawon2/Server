@@ -61,23 +61,23 @@
      - Optional Email settings : single email 체크
      - Notification settings : Default , Include image 체크
 
-**- Test 후 메일 잘 오는지 확인 후 Save**
+**-> Test 후 메일 잘 오는지 확인 후 Save**
 
 ### Alert 생성 및 연결
 1. 대시보드로 들어가서 Panel 클릭 후 Edit ( Variables가 포함된 Panel은 Alert 설정 불가 ! )
 2. Alert 클릭
-Name : Test alert
-Evaluate every : 10s  ,  For : 0  ( 10초동안 계속(0초) 컨디션 체크 )
-Conditions
-- WHEN : last() ,  OF : query(A, 10s, now)  ,  IS ABOVE : 80  ( A쿼리에 값중 10초전부터 지금까지, 마지막 값이 80이상이면 Alert 발동 )
+- Name : Test alert
+- Evaluate every : 10s  ,  For : 0  ( 10초동안 계속(0초) 컨디션 체크 )
+- Conditions
+     - WHEN : last() ,  OF : query(A, 10s, now)  ,  IS ABOVE : 80  ( A쿼리에 값중 10초전부터 지금까지, 마지막 값이 80이상이면 Alert 발동 )
 
-If no data or all values are null : NO Data ( No data와 모든 Value null에 대해서 알람 OFF )
-If execution error or timeout : Alerting ( 실행에러와 타임아웃 알람 ON )
+- If no data or all values are null : NO Data ( No data와 모든 Value null에 대해서 알람 OFF )
+- If execution error or timeout : Alerting ( 실행에러와 타임아웃 알람 ON )
 
-Send to : Gmail Test ( 생성한 Alert Channel )
-Message : CPU usage is over 80% !! ( 메일에 포함하고싶은 메세지 입력 )
+- Send to : Gmail Test ( 생성한 Alert Channel )
+- Message : CPU usage is over 80% !! ( 메일에 포함하고싶은 메세지 입력 )
 
--> Test rule 클릭 후 정상적으로 메일오는지 확인
+**-> Test rule 클릭 후 정상적으로 메일오는지 확인**
 
 ***
 ## ★ 정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★
