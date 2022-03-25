@@ -36,6 +36,7 @@ Forwarding을 설정하여 해당 네임 서버가 직접 도메인 정보를 �
 # systemctl enable named
 
 ```
+* * *
 - TEST -
 ```
 1.
@@ -117,6 +118,7 @@ ncpa.cpl -> 이더넷 -> ipv4 -> 기본 DNS 211.251.236.200
 
 ★ 정상적으로 작동된다면 DNS 서버 포워딩방식 설정 완료 ! ★
 
+* * *
 
 참조 : https://nirsa.tistory.com/108?category=872350
         https://chhanz.github.io/linux/2020/11/06/configuration-dns/
