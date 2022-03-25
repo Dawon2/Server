@@ -169,21 +169,22 @@ net.ipv4.ip_forward = 1
 ```
 ***
 ### Client 연결
-```
-1.
+
+**1. 키 생성**
 # ./easyrsa gen-req dw nopass
 # ./easyrsa sign-req client dw
 
 # cp /etc/openvpn/easy-rsa/pki/issued/dw.crt /etc/openvpn/easy-rsa/keys
 # cp /etc/openvpn/easy-rsa/pki/private/dw.key /etc/openvpn/easy-rsa/keys
 
-2.
+**2. 키 이동**
 SFTP 프로그램을 이용하여 Client(window)에 C:\Program Files\OpenVPN안에 keys 폴더 생성 후
 ca.crt, dw.crt, dw.key 등 파일 이동
 
-3.
+**3. Ovpn 파일 생성**
 C:\Program Files\OpenVPN\config 폴더 안에 Client 전용 conf파일 ovpn 생성
 --------------------------------------------------------
+```
 remote 211.251.236.200 1194
 
 client
@@ -222,16 +223,14 @@ key "C:\\Program Files\\OpenVPN\\keys\\dw.key"
 ( 필요에 따라 경로 변경하는곳 )
 ```
 ### TEST
-```
-1.
-윈도우에 설치한 OpenVPN GUI를 실행시켜서 연결 잘 되는지 확인
 
-2.
-cmd에서 ipconfig로 OpenVPN ip가 잘 올라가있는지 확인
+**1. 윈도우에 설치한 OpenVPN GUI를 실행시켜서 연결 잘 되는지 확인**
 
-3.
-VPN 서버에서 ip a 명령어로 장비가 잘 올라갔는지 IP 맞는지 확인
-```
+**2. cmd에서 ipconfig로 OpenVPN ip가 잘 올라가있는지 확인**
+
+**3. VPN 서버에서 ip a 명령어로 장비가 잘 올라갔는지 IP 맞는지 확인**
+
+
 ***
 **★ 정상적으로 작동된다면 OpenVPN 서버 구축 완료 ! ★**
 ***
