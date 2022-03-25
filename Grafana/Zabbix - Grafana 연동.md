@@ -33,36 +33,36 @@
 
 ```
 
-**-> Grafana 홈페이지 접속**
-http://172.17.120.241:3000/
+**-> 아래부터는 Grafana 홈페이지 접속 후 진행**
+```http://172.17.120.241:3000/```
 ( 서버 IP에 Grafana 포트 3000번 입력 )
 
-초기 ID / PW 
+- 초기 ID / PW
 : admin / admin
 
 1. 자빅스 연동
-- 플러그인 -
-> Configuration(설정) - Plugins - Zabbix 검색 ( 아까 설치한 플러그인 패키지 ) - 클릭 후 Enable
+- 플러그인
+  - Configuration(설정) - Plugins - Zabbix 검색 ( 아까 설치한 플러그인 패키지 ) - 클릭 후 Enable
 
-- 데이터소스 추가 -
-> Configuration(설정) - Data Sources - Add data source - zabbix
--HTTP-
-URL : http://172.17.120.241/zabbix/api_jsonrpc.php
+- 데이터소스 추가
+  - Configuration(설정) - Data Sources - Add data source - zabbix
+    - HTTP
+      URL : http://172.17.120.241/zabbix/api_jsonrpc.php
 
--Zabbix API details-
-Username : Admin
-Password : zabbix
-( Zabbix 홈페이지 접속 초기 ID / PW )
-
-Save & test
+    - Zabbix API details
+      Username : Admin
+      Password : zabbix
+      ( Zabbix 홈페이지 접속 초기 ID / PW )
+    - Save & test
 
 2. Grafana 대시보드 추가
 https://grafana.com/grafana/dashboards/?search=zabbix
 ( 그라파나 대시보드 사이트에서 원하는 대시보드 url 복사 ! )
 
-> Create(생성) - Import - 복사한 대시보드 url 입력 - Load - Data source Zabbix 선택 - Import
+- 대시보드 생성
+  - Create(생성) - Import - 복사한 대시보드 url 입력 - Load - Data source Zabbix 선택 - Import
 
-대시보드 추가 완료!!
+  -> 대시보드 추가 완료!!
 
 ### 추가
 - 대시보드에 전부 No data가 뜨면 mariadb 확인 및 재시작 , 그라파나 설정 확인
