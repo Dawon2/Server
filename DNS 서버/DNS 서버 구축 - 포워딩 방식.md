@@ -1,9 +1,7 @@
 # DNS 서버 구축 - 포워딩 방식
 
-
 ## 구축 목적
 : 클라이언트가 도메인으로 접속했을때 그에 맞는 IP를 찾아서 전달해주기 위해
-
 
 ## DNS 구축
 ```
@@ -41,8 +39,7 @@ Forwarding을 설정하여 해당 네임 서버가 직접 도메인 정보를 �
 ***
 - TEST
 ```
-1.
-DNS 포트 잘 올라와있는지 확인 
+- 1. DNS 포트 잘 올라와있는지 확인 
 
 # netstat -plunt
 Active Internet connections (only servers)
