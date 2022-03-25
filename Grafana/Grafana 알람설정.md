@@ -1,14 +1,17 @@
-- 구축 목적 -
+# Grafana 알람설정
+
+## 구축 목적
 : Grafana로 상황에 따른 트리거를 설정하여 알람 받기
 
-Port : 25, 587
+### Port : 25, 587
 
-- 알람설정 구축 -
+## 알람설정 구축
 
-* Grafana 환경 전부 구축 후 진행
+**> Grafana 환경 전부 구축 후 진행
+> Gmail의 경우 계정설정의 보안탭에서 보안수준이 낮은 앱의 액세스 설정을 "액세스 허용" 해주어야 함.**
 
-★Gmail의 경우 계정설정의 보안탭에서 보안수준이 낮은 앱의 액세스 설정을 "액세스 허용" 해주어야 함.
-
+### 서버 설정
+```
 # yum -y install postfix
 # yum -y install epel-release
 # yum -y install ssmtp
@@ -45,11 +48,12 @@ Port : 25, 587
     608 from_address = chku153@xenosolution.co.kr
     609 from_name = Grafana
 ------------------------------------------------------------------
+```
 
-** Grafana 홈페이지 접속
+**> Grafana 홈페이지 접속
 
-★ Alert channel 생성 ★
-Alerting -> Notification channels -> New Channel
+### Alert channel 생성
+- Alerting -> Notification channels -> New Channel
 
 Name : Gmail Test
 Type : Email
@@ -58,7 +62,7 @@ Optional Email settings : single email 체크
 Notification settings : Default , Include image 체크
 -> Test 후 메일 잘 오는지 확인 후 Save
 
-★ Alert 생성 및 연결 ★
+### Alert 생성 및 연결
 1. 대시보드로 들어가서 Panel 클릭 후 Edit ( Variables가 포함된 Panel은 Alert 설정 불가 ! )
 2. Alert 클릭
 Name : Test alert
@@ -74,10 +78,10 @@ Message : CPU usage is over 80% !! ( 메일에 포함하고싶은 메세지 입�
 
 -> Test rule 클릭 후 정상적으로 메일오는지 확인
 
+***
+## ★ 정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★
+***
 
-★ 정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★
-
-
-- 참조 -
-: https://ksr930.tistory.com/177
-  https://danawalab.github.io/common/2021/01/26/Common-Grafana-Alert.html
+## 참조
+- https://ksr930.tistory.com/177
+- https://danawalab.github.io/common/2021/01/26/Common-Grafana-Alert.html
