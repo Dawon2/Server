@@ -41,6 +41,7 @@
 - 초기 ID / PW
 : admin / admin
 
+
 1. 자빅스 연동
 - 플러그인
   - Configuration(설정) - Plugins - Zabbix 검색 ( 아까 설치한 플러그인 패키지 ) - 클릭 후 Enable
