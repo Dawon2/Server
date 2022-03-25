@@ -11,6 +11,7 @@
 
 [link]: https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md
 
+### 서버 설정
 ```
 # yum -y install wget
 # wget https://dl.grafana.com/enterprise/release/grafana-enterprise-8.4.1-1.x86_64.rpm
@@ -25,7 +26,9 @@
 ( Grafana에 Zabbix 플러그인 패키지가 없기 때문에 수동 설치 )
 # systemctl restart grafana-server
 
--> Grafana 홈페이지 접속
+```
+
+**-> Grafana 홈페이지 접속**
 http://172.17.120.241:3000/
 ( 서버 IP에 Grafana 포트 3000번 입력 )
 
@@ -56,24 +59,23 @@ https://grafana.com/grafana/dashboards/?search=zabbix
 
 대시보드 추가 완료!!
 
-
-* 대시보드에 전부 No data가 뜨면 mariadb 확인 및 재시작 , 그라파나 설정 확인
+### 추가
+- 대시보드에 전부 No data가 뜨면 mariadb 확인 및 재시작 , 그라파나 설정 확인
   /var/log/grafana/grafana.log 에서 log 확인
 
-* 대시보드에 특정 부분만 No data가 뜨면
+- 대시보드에 특정 부분만 No data가 뜨면
   -> 대시보드 특정 해당 부분 제목 클릭 - Explore - Item 부분이 Zabbix 최근데이터의 이름과 동일한지 확인 - 수정하면 해결
 
-* 추가적으로 Agent 연동은 동일하게 진행하고 그라파나 재시작!
+- 추가적으로 Agent 연동은 동일하게 진행하고 그라파나 재시작!
 
+***
+**★정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★**
+***
 
-★ 정상적으로 작동된다면 Zabbix - Grafana 연동 완료 ! ★
+## 참조
+- https://honglab.tistory.com/72
+- https://gsk121.tistory.com/427
+- https://cloudest.tistory.com/25
+- https://cloudest.oopy.io/posting/004
 
-- 참고 -
-https://honglab.tistory.com/72
-https://gsk121.tistory.com/427
-https://cloudest.tistory.com/25
-https://cloudest.oopy.io/posting/004
-
-알람설정 : https://ksr930.tistory.com/177
-
-그라파나 공식 데모페이지 : https://play.grafana.org/
+- 그라파나 공식 데모페이지 : https://play.grafana.org/
