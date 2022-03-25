@@ -38,9 +38,9 @@ Forwarding을 설정하여 해당 네임 서버가 직접 도메인 정보를 �
 ```
 ***
 ## TEST
-```
-### 1. DNS 포트 잘 올라와있는지 확인 
 
+### 1. DNS 포트 잘 올라와있는지 확인 
+```
 # netstat -plunt
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
@@ -67,9 +67,9 @@ udp6       0      0 ::1:123                 :::*                                
 udp6       0      0 :::123                  :::*                                2445/ntpd           
 udp6       0      0 :::29873                :::*                                756/dhclient        
 udp6       0      0 ::1:53                  :::*                                7301/named          
-
+```
 ### 2. nslookup 명령어로 DNS레코드에 잘 들어가있는지 확인
-
+```
 [ 리눅스 - 서버 ]
 # nslookup
 > server
@@ -101,10 +101,10 @@ Address:  211.251.236.200
 이름:    www.google.com
 Addresses:  2404:6800:4004:81d::2004
           172.217.175.36
-
+```
 
 ### 3. 클라이언트에서 DNS 서버를 211.251.236.200 으로 바꿔서 접속 테스트
-
+```
 ncpa.cpl -> 이더넷 -> ipv4 -> 기본 DNS 211.251.236.200
 
 -> 구글 접속 테스트
