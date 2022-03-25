@@ -120,6 +120,7 @@ ncpa.cpl -> 이더넷 -> ipv4 -> 기본 DNS 211.251.236.200
 
 ***
 
-참조 : - https://nirsa.tistory.com/108?category=872350
+## 참조
+- https://nirsa.tistory.com/108?category=872350
 - https://chhanz.github.io/linux/2020/11/06/configuration-dns/
 - https://aidencom.tistory.com/57
