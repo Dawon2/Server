@@ -8,7 +8,10 @@ ex) 내 컴퓨터에서 VPN 서버를 통해서 KT Cloud의 사설 VM 으로 접
 (218.154.31.75/32)          (10.8.0.0/16)        (172.27.0.0/16)
 ```
 
-< OpenVPN 구축 >
+## OpenVPN 구축
+
+### 서버 설정
+```
 # yum -y install epel-release
 # yum -y install openvpn openssl easy-rsa
 
@@ -163,8 +166,10 @@ net.ipv4.ip_forward = 1
 
 # sysctl –p
 ( 적용 )
-
-- Client 연결 -
+```
+***
+### Client 연결
+```
 1.
 # ./easyrsa gen-req dw nopass
 # ./easyrsa sign-req client dw
@@ -215,8 +220,9 @@ key "C:\\Program Files\\OpenVPN\\keys\\dw.key"
 
 # vi /usr/lib/systemd/system/openvpn@.service
 ( 필요에 따라 경로 변경하는곳 )
-
-- TEST -
+```
+### TEST
+```
 1.
 윈도우에 설치한 OpenVPN GUI를 실행시켜서 연결 잘 되는지 확인
 
@@ -225,15 +231,16 @@ cmd에서 ipconfig로 OpenVPN ip가 잘 올라가있는지 확인
 
 3.
 VPN 서버에서 ip a 명령어로 장비가 잘 올라갔는지 IP 맞는지 확인
+```
+***
+**★ 정상적으로 작동된다면 OpenVPN 서버 구축 완료 ! ★**
+***
 
-
-★ 정상적으로 작동된다면 OpenVPN 서버 구축 완료 ! ★
-
-- 참조 -
-Server
+## 참조
+- Server
 : https://hiteit.tistory.com/5
   https://indienote.tistory.com/142
 
-config
+- config
 : http://www.t8.co.kr/bbs/board.php?bo_table=networking&wr_id=2
   https://hook.tistory.com/entry/Windows-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%97%90-OpenVPN-Client-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
