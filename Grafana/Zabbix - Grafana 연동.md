@@ -10,10 +10,9 @@
 
 [id]: URL "Optional Title here"
 
-// code
-Link: [zabbix-server][googlelink]
+[zabbix-server][googlelink]
 
-[googlelink]: https://google.com "Go google"
+[googlelink]: https://github.com/Dawon2/Server-Practice/blob/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Server%20%EA%B5%AC%EC%B6%95.md "Go google"
 
 ```
 # yum -y install wget
