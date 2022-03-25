@@ -6,6 +6,14 @@
 ## Grafana 연동
 
 **먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 참고 )**
+[link keyword][id]
+
+[id]: URL "Optional Title here"
+
+// code
+Link: [zabbix-server][googlelink]
+
+[googlelink]: https://google.com "Go google"
 
 ```
 # yum -y install wget
