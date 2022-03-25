@@ -5,7 +5,7 @@
 
 ## Grafana 연동
 
-**먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 참고 )**
+**먼저 Zabbix Server 구축 후 진행( Zabbix Server 구축 아래 링크 참고 )**
 
 링크 : [Zabbix 서버 구축!][link]
 
