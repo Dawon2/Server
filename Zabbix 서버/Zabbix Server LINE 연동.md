@@ -103,13 +103,13 @@ Line Notify_shell 테스트 클릭해서 생성 한 그룹으로 메세지 잘 �
 
 2.
 Zabbix Server에서
-
+```
 # cd /usr/lib/zabbix/alertscripts/
 
 # ./zbxln.sh DQN5cYVVNpm4DqbgLKabtWhz6wvuYQav93LM3wHNY3p $SUBJECT $MESSAGE
   ( ./zbxln.sh  라인 토큰값, 제목, 메세지 )
-
-그룹으로 메세지 잘 오는지 확인
+```
+-> 그룹으로 메세지 잘 오는지 확인
 
 ***
 **★ 정상적으로 작동된다면 LINE 연동 완료 ! ★**
