@@ -32,8 +32,8 @@ lsyncd : 실시간 동기화를 해주는 역할
 
 # rsync -avz /root/rsytest/ 175.106.99.250:/root/rsytest
 ( /root/rsytest/의 파일들을 175.106.99.250 DEC서버의 /root/rsytest로 파일 동기화 )
-
-옵션 )
+```
+- 옵션
 -a : archive mode (= -rlptgoD)
 -r : 하위 디렉토리
 -l : symbolic link
@@ -47,7 +47,6 @@ lsyncd : 실시간 동기화를 해주는 역할
 -H : hard link
 --exclude : 제외할 파일확장자 설정
 
-```
 ***
 
 ### lsync 실시간 동기화 환경 구축
@@ -96,20 +95,22 @@ sync {
   ▶ id_rsa.pub: 공개키(public key)이며 서버(server)가 가지고 있는다.
 
   ▶ authorized_keys: 서버가 접속을 허용할 공개키(public key) 리스트다.
-
-★ 키 접속 구조 
+```
+**★ 키 접속 구조 ★**
 1. 먼저 접속할 Master 서버에서 개인키(id_rsa)와 공개키(id_rsa.pub)를 생성한다.
 2. 접속을 허용할 Backup 서버에서 공개키 리스트(authorized_keys)를 생성하고 Master서버의 공개키(id_rsa.pub) 내용을 넣어준다.
 3. 이제 Master 서버에서 개인키(id_rsa)를 통하여 Backup서버에 접속이 가능하다.
 
-* Master 서버에서 개인키로 데이터를 암호화하고 Backup 서버에서 공개키로 복호화
+**Master 서버에서 개인키로 데이터를 암호화하고 Backup 서버에서 공개키로 복호화**
 
-- 디렉토리 및 파일 권한 변경! 
-** /root 디렉토리 권한 : 700
+- 디렉토리 및 파일 권한 변경!
+```
+   /root 디렉토리 권한 : 700
    /.ssh/authorized_keys 권한 : 600, 644
    /.ssh 권한 : 700
 ( 확인 및 변경 진행 )
-
+```
+```
 # systemctl start lsyncd
 # systemctl enable lsyncd
 
