@@ -11,7 +11,7 @@ HA 2 : 172.17.124.242
 WEB 1 : 172.17.124.243
 WEB 2 : 172.17.124.244
 ```
-
+***
 ## keepalived 구축
 ```
 # yum -y install keepalived
@@ -115,7 +115,7 @@ vrrp_instance VI_1 {
 # vi /var/log/messages
 # systemctl status keepalived
 ```
-
+***
 ## TEST
 
 - ip a 명령어를 통해 HAproxy 서버와 VIP가 잘 들어와있는지 확인
