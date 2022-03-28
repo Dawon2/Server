@@ -30,7 +30,7 @@ Zabbix Agent - Window : 172.17.124.198
 ```
 ***
 ## TEST
-1. 포트 잘 올라와있나 확인
+**1. 포트 잘 올라와있나 확인**
 ```
 # netstat -plunt
 Active Internet connections (only servers)
@@ -42,7 +42,7 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 tcp6       0      0 ::1:25                  :::*                    LISTEN      1055/master         
 tcp6       0      0 :::10050                :::*                    LISTEN      1351/zabbix_agentd  
 ```
-2. 프로세스 확인 - listener까지 나오면 정상
+**2. 프로세스 확인 - listener까지 나오면 정상**
 ```
 # ps -ef | grep zabbix
 zabbix     1351      1  0  21 ?      00:00:00 /usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
@@ -55,7 +55,7 @@ root       3419   1070  0 02:50 pts/0    00:00:00 grep --color=auto zabbix
 
 - 정상 확인 후 Zabbix Web 설정
 
-1. 호스트 작성
+**1. 호스트 작성**
 호스트명 : Linux Server - Agent
 그룹 : Linux servers
 Interfaces : 172.17.124.243 ( Agent 서버 IP )
@@ -63,7 +63,7 @@ IP 주소 : 포트 10050
 템플릿 - Link new templates : Template OS Linux by Zabbix agent
 추가
 
-2. 호스트에서 ZBX 초록불 확인
+**2. 호스트에서 ZBX 초록불 확인**
 
 ***
 **★ 정상적으로 작동된다면 Zabbix Agent Centos 구축 완료 ! ★**
