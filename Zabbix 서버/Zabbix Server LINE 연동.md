@@ -51,6 +51,7 @@ https://notify-api.line.me/api/notify
 ### Zabbix 홈페이지 설정
 
 1.
+- xml 파일을 통해 작성
 관리 -> 미디어타입
 
 가져오기로 zbx_Line_mediatypes_5.0.xml ( 미디어 타입 설정 파일 ) 가져오기
@@ -59,37 +60,40 @@ https://notify-api.line.me/api/notify
 [link]: https://github.com/Dawon2/Server-Practice/tree/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20LINE%20%EC%97%B0%EB%8F%99%20%ED%8C%8C%EC%9D%BC
 
 
-<문제 발생시 수동 작성>
-- 연락 방법 -
+- 문제 발생시 수동 작성
+
+	- 연락 방법
+```
 이름 : Line Notify_shell
 종류 : 스크립트
 스크립트 이름 : zbxln.sh ( 전에 만든 스크립트 파일명과 동일 )
 스크립트 파라미터 : (ALERT_SENDTO)
 		 (ALERT_SUBJECT)
 		 (ALERT_MESSAGE)
+```
 
-- Message templates -
+	- Message templates
 장애 , Problem recovery , Problem update , 디스커버리 , Autoregistration 추가
 
-2.
+- 2. 액션 작성
 설정 -> 액션 -> 왼쪽 위 Trigger actions - 액션작성
 
-- 액션 -
+	- 액션
 이름 : Line Action
 ( 조건 X , 모든 액션에 대해서 )
 
-- 오퍼레이션 -
+	- 오퍼레이션
 오퍼레이션 : 사용자에게 메세지를 송신 : Admin
 ( 액션 발동 시 어디로 어떤 행동을 취할건지 선택 )
 
 복구시, 갱신시 = 필요시에 추가
 
-3.
+- 3. 토큰 연결
 관리 -> 유저
 
-Admin 클릭 - 추가
+	- Admin 클릭 - 추가
 
-- 연락방법 -
+	- 연락방법
 종류 : Line Notify_shell
 수신처 : Line 토큰 입력
 
