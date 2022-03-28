@@ -51,10 +51,10 @@ c:\zabbix\bin > zabbix_agentd.exe -i -c c:\zabbix\conf\zabbix_agentd.conf
 
 - Zabbix 서버 홈페이지로 이동
 
-  - 설정 - 호스트그룹 - 호스트 그룹 작성
+  - 설정 -> 호스트그룹 -> 호스트 그룹 작성
 그룹이름 : Windows Server
 
-  - 설정 - 호스트
+  - 설정 -> 호스트
 ```
 호스트명 : Windows Server - Agent
 그룹 : Windows Server
