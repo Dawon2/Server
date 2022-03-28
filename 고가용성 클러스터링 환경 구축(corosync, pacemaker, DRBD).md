@@ -1,6 +1,9 @@
-- 구축 목적 -
+# 고가용성 클러스터링 환경 구축(corosync, pacemaker, DRBD)
+
+## 구축 목적
 : 서버 및 서비스를 클러스터로 묶어서 관리하고 , 그 환경을 고가용성(HA) 환경으로 구축하여 다운타임을 최소화 하기 위하여
 
+### 서비스 의미
 ★
 corosync : 클러스터 내의 "노드 간" 통신 및 동기화 작업 담당
 pacemaker : corosync의 기능을 이용하여 "클러스터" 리소스 제어 및 관리 담당 ( 상태에 따른 순차적 노드 서비스 시작 및 정지 )
@@ -8,10 +11,13 @@ DRBD : Failover에 따른 파일 시스템 동기화 ( 디스크 미러링 )
 pcsd : 클러스터 설정을 간편하게 하기 위해 쓰는 툴
 ★
 
+## 서버 구축
 
-★웹 이중화 버전★
-- corosync 및 pacemaker 환경 구축 -
+**★웹 이중화 버전★**
 
+### corosync 및 pacemaker 환경 구축
+
+```
 # cat /etc/hosts
 172.16.1.6      dw-test
 172.16.1.7      dw-test2
@@ -101,10 +107,11 @@ VirtualIP	(ocf::heartbeat:IPaddr2):	Started dw-test -> 리소스 추가 확인
 Disabled on: wolf2 (score:-INFINITY) (id:location-WebService-wolf2--INFINITY)
 # pcs constraint remove location-WebService-wolf2--INFINITY
 ( 리소스 삭제가 필요할땐 --full로 id를 확인 후에 remove [id] 로 삭제 )
+```
 
+### DRBD 환경 구축
 
-- DRBD 환경 구축  -
-
+```
 # rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 # rpm -ivh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
 # yum install drbd90-utils
@@ -220,11 +227,13 @@ disk_dw role:Secondary
 
 # pcs constraint order DrbdFS then WebService
 ( 웹서비스 보다 DrbdFS 가 먼저 실행되도록 설정 )
+```
 
 
-★DB 이중화 버전★
+**★DB 이중화 버전★**
+
 * 구축 전 디스크 추가 먼저 진행
-
+```
 # vi /etc/hosts
 ------------------------
 172.16.1.8      dw1
@@ -374,9 +383,10 @@ net {
 # pcs -f drbd_cfg constraint order promote DataSync then start p-group
 # pcs cluster cib-push drbd_cfg
 ( cib로 묶어서 리소스 설정 진행 )
+```
 
-
-- TEST -
+## TEST
+```
 1.해당 리소스 설정 내용들이 정상적으로 들어갔는지 확인
 # pcs constraint
 
@@ -397,7 +407,7 @@ Failover 정상적으로 이루어지는지 확인
 - kill -9 [ 서비스 PID ]
 - netstat -plunt
 
-
+```
 * fail count 리셋 : pcs resource failcount reset
 
 * drbd StandAlone 발생 시
@@ -406,13 +416,13 @@ Failover 정상적으로 이루어지는지 확인
 [Master]
 : drbdadm connect all
 
+***
+**★ 정상적으로 작동된다면 고가용성 클러스터링 환경 구축( corosync, pacemaker, DRBD ) 완료 ! ★**
+***
 
-★ 정상적으로 작동된다면 고가용성 클러스터링 환경 구축( corosync, pacemaker, DRBD ) 완료 ! ★
-
-
-- 참조 -
-https://blog.boxcorea.com/wp/archives/1784
-https://www.nextree.co.kr/p12211/
-https://it-sunny-333.tistory.com/135
-https://open-infra.tistory.com/7
+## 참조
+- https://blog.boxcorea.com/wp/archives/1784
+- https://www.nextree.co.kr/p12211/
+- https://it-sunny-333.tistory.com/135
+- https://open-infra.tistory.com/7
 
