@@ -76,7 +76,7 @@ https://notify-api.line.me/api/notify
 스크립트 파라미터 : (ALERT_SENDTO)
 		 (ALERT_SUBJECT)
 		 (ALERT_MESSAGE)
-		 ```
+```
 	
 
 - Message templates
