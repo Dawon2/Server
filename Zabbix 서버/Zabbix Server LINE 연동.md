@@ -3,6 +3,8 @@
 ## 구축 목적
 : Zabbix Server로 부터 모니터링 중 문제되는 현상이 발생했을때 LINE 으로 메세지를 트리거 해주기 위해
 
+***
+
 ## LINE 연동 구축
 ```
 # vi /usr/lib/zabbix/alertscripts/zbxln.sh
@@ -77,6 +79,8 @@ https://notify-api.line.me/api/notify
 	- Message templates
 장애 , Problem recovery , Problem update , 디스커버리 , Autoregistration 추가
 
+***
+
 **2. 액션 작성**
 설정 -> 액션 -> 왼쪽 위 Trigger actions -> 액션작성
 
@@ -90,6 +94,8 @@ https://notify-api.line.me/api/notify
 
 복구시, 갱신시 = 필요시에 추가
 
+***
+
 **3. 토큰 연결**
 관리 -> 유저
 
@@ -99,6 +105,7 @@ https://notify-api.line.me/api/notify
 종류 : Line Notify_shell
 수신처 : Line 토큰 입력
 
+***
 
 ## TEST
 
