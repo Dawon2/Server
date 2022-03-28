@@ -109,7 +109,7 @@ tcp6       0      0 :::10051                :::*                    LISTEN      
 
 2. 홈페이지에 172.17.124.244/zabbix ( Zabbix Server IP ) 입력 후 정상 접속 확인
 
-* 정상접속 확인 후 Zabbix WEB 설정 *
+- 정상접속 확인 후 Zabbix WEB 설정
 
 1. Next step
 
