@@ -9,8 +9,8 @@ Zabbix Agent - Window : 172.17.124.198
 
 ## Agent 구축
 
-- 1. 먼저 설치파일 다운로드 진행 !!
-- https://www.zabbix.com/download_agents?version=5.4&release=5.4.10&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0
+- 1 먼저 설치파일 다운로드 진행 !!
+> https://www.zabbix.com/download_agents?version=5.4&release=5.4.10&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0
 
 
 2. C:\zabbix 에 폴더 이름변경 후 안에 압축 해제
