@@ -10,6 +10,8 @@ HA 2 : 172.17.124.242
 WEB 1 : 172.17.124.243
 WEB 2 : 172.17.124.244
 
+***
+
 ## 완전 기본서버일때만 설정
 
 ### 기본 네트워크 설정
@@ -43,6 +45,8 @@ nameserver 8.8.8.8
 # ntpq -p ( 잘 들어갔는지 확인 )
 # date ( 확인 )
 ```
+
+***
 
 ## HAProxy 구축
 ```
@@ -163,6 +167,8 @@ listen stats
 # systemctl start haproxy
 # systemctl enable haproxy
 ```
+
+***
 
 ## TEST
 
