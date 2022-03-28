@@ -89,8 +89,7 @@ php_value[date.timezone] = Asia/Seoul
 ***
 
 ## TEST
-1.
-Zabbix server(10051), agent(10050), mysql(3306), httpd(80) 다 정상적으로 포트 올라와있는지 확인
+1. Zabbix server(10051), agent(10050), mysql(3306), httpd(80) 다 정상적으로 포트 올라와있는지 확인
 ```
 # netstat -plunt
 Active Internet connections (only servers)
@@ -108,11 +107,9 @@ tcp6       0      0 :::10050                :::*                    LISTEN      
 tcp6       0      0 :::10051                :::*                    LISTEN      12691/zabbix_server 
 ```
 
-2.
-홈페이지에 172.17.124.244/zabbix ( Zabbix Server IP ) 입력 후 정상 접속 확인
+2. 홈페이지에 172.17.124.244/zabbix ( Zabbix Server IP ) 입력 후 정상 접속 확인
 
-
-* 정상접속 확인 후 Zabbix Web 설정 *
+* 정상접속 확인 후 Zabbix WEB 설정 *
 
 1. Next step
 
