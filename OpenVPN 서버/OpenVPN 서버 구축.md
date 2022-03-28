@@ -185,7 +185,6 @@ ca.crt, dw.crt, dw.key 등 파일 이동
 **3. Ovpn 파일 생성**
 C:\Program Files\OpenVPN\config 폴더 안에 Client 전용 conf파일 ovpn 생성
 
---------------------------------------------------------
 ```
 remote 211.251.236.200 1194
 
@@ -215,7 +214,7 @@ ca "C:\\Program Files\\OpenVPN\\keys\\ca.crt"
 cert "C:\\Program Files\\OpenVPN\\keys\\dw.crt"
 
 key "C:\\Program Files\\OpenVPN\\keys\\dw.key"
---------------------------------------------------------
+
 
 # systemctl start openvpn@server
 # systemctl enable openvpn@server
