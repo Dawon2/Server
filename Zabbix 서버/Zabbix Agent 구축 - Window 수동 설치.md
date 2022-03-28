@@ -39,18 +39,18 @@ c:\zabbix\bin > zabbix_agentd.exe -i -c c:\zabbix\conf\zabbix_agentd.conf
 ( zabbix agent 파일로 설치를 진행하고 config 파일을 넣어준다 )
 
 **5. 서비스 설정**
-
+```
 윈도우 + R -> services.msc -> Zabbix Agent 서비스 시작
-
+```
 **6. 방화벽 설정**
-
+```
 윈도우 + R -> firewall.cpl -> 고급 설정 -> 인바운드 규칙 + 새 규칙 ->
 포트 선택 -> TCP + 특정 로컬 포트 10050 -> 연결 허용 -> 도메인, 개인, 공용 체크 -> 이름 - Zabbix Agent 포트 허용 + 설명 - 포트 : 10050
-
+```
 **7. Zabbix WEB 설정**
 
 - Zabbix 서버 홈페이지로 이동
-
+```
   - 설정 - 호스트그룹 - 호스트 그룹 작성
 그룹이름 : Windows Server
 
@@ -60,12 +60,12 @@ c:\zabbix\bin > zabbix_agentd.exe -i -c c:\zabbix\conf\zabbix_agentd.conf
 Interfaces : 172.17.124.243 ( Agent 서버 주소 )
 IP주소 : 포트 10050
 템플릿 - Link new templates : Template OS Windows by Zabbix agent
-추가
-
+-> 추가
+```
 ***
 
 ## TEST
-모두 등록 완료 후 호스트에서 Zabbix Agent 연결 확인
+- 모두 등록 완료 후 호스트에서 Zabbix Agent 연결 확인
 ( ZBX 초록불 )
 
 ***
