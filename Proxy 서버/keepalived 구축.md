@@ -118,7 +118,7 @@ vrrp_instance VI_1 {
 
 ## TEST
 
-- 1. ip a 명령어를 통해 HAproxy 서버와 VIP가 잘 들어와있는지 확인
+- ip a 명령어를 통해 HAproxy 서버와 VIP가 잘 들어와있는지 확인
 ```
 # ip a
 
@@ -140,7 +140,7 @@ vrrp_instance VI_1 {
     inet6 fe80::526b:8dff:feed:eb88/64 scope link 
        valid_lft forever preferred_lft forever
 ```
-- 2. 서비스를 내렸을때 정상적으로 BACKUP서버 쪽으로 Failover 되는지 확인 ( HAproxy )
+- 서비스를 내렸을때 정상적으로 BACKUP서버 쪽으로 Failover 되는지 확인 ( HAproxy )
 ```
 # systemctl stop keepallived
 
@@ -162,12 +162,12 @@ vrrp_instance VI_1 {
     inet6 fe80::526b:8dff:feed:eb88/64 scope link 
        valid_lft forever preferred_lft forever
 ```
-- 3. 위와 동일하게 확인 ( keepalived )
+- 위와 동일하게 확인 ( keepalived )
 ```
 # systemctl stop haproxy
 : 위와 동일하게 확인
 ```
-- 4. WEB에서 Proxy서버가 정상적으로 작동되는지, 내렸을때도 VIP로 접속했을때 잘 올라오는지 확인
+- WEB에서 Proxy서버가 정상적으로 작동되는지, 내렸을때도 VIP로 접속했을때 잘 올라오는지 확인
 
 ***
 **★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★**
