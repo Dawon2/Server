@@ -172,6 +172,6 @@ listen stats
 **★ 정상적으로 작동된다면 HAproxy 구축 완료 ! ★**
 ***
 
-## 참고
-설정파일 찾는곳 : https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#3.1
-	          https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
+## 참조
+https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#3.1
+https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
