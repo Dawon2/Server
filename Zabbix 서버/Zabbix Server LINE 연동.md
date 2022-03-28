@@ -65,9 +65,9 @@ https://notify-api.line.me/api/notify
 ----------------------------------------------------------------------------
 ```
 
-- 문제 발생시 수동 작성
+**- 문제 발생시 수동 작성**
 
-	- 연락 방법
+- 연락 방법
 
 ```
 이름 : Line Notify_shell
@@ -76,9 +76,10 @@ https://notify-api.line.me/api/notify
 스크립트 파라미터 : (ALERT_SENDTO)
 		 (ALERT_SUBJECT)
 		 (ALERT_MESSAGE)
-```
+		 ```
+	
 
-	- Message templates
+- Message templates
 장애 , Problem recovery , Problem update , 디스커버리 , Autoregistration 추가
 
 ***
