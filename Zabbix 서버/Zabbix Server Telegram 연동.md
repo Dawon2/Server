@@ -86,7 +86,7 @@ admin 클릭 ( 앞서 선택한 계정 )
 
 ## TEST
 
-1.
+**1. 텔레그램 그룹방에 메세지 잘 오는지 확인**
 ```
 # cd /usr/lib/zabbix/alertscripts
 
@@ -94,17 +94,17 @@ admin 클릭 ( 앞서 선택한 계정 )
 ex ) python zbxtg.py @dwdwdw456 hi hihihihi
 ( Telegram ID는 Telegram에서 setting -> Edit Profile 에서 확인 , 없으면 생성 )
 
-텔레그램 그룹방에 메세지 잘 오는지 확인
 ```
 
-2.
-메세지 보냈을때 uid 잘 올라오는지 확인
+**2. 메세지 보냈을때 uid 잘 올라오는지 확인**
+
 ```
 # cd /var/tmp/zbxtg
 # cat uids.txt
 ( Telegram 채팅방에 정상적으로 올라오면 같이 올라옴 )
 ```
-3.
+
+**3.**
 ```
 관리 -> 미디어타입
 
