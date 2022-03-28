@@ -105,10 +105,12 @@ ex ) python zbxtg.py @dwdwdw456 hi hihihihi
 ( Telegram 채팅방에 정상적으로 올라오면 같이 올라옴 )
 ```
 3.
-관리 - 미디어타입
+```
+관리 -> 미디어타입
 
 telegram 테스트
 수신처 api 키 입력해서 테스트
+```
 
 ***
 **★ 정상적으로 작동된다면 Telegram 연동 완료 ! ★**
