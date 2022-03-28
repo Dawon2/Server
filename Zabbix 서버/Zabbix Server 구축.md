@@ -1,12 +1,14 @@
-- IP -
+# Zabbix Server 구축
+
+## 구축 목적
+: Agent서버의 네트워크 하드웨어를 감시, 추적하여 장애발생을 신속하게 알리기 위한 '모니터링' 환경 구축
+
+### IP
 Zabbix Server : 172.17.124.244
 Zabbix Agent - Centos : 172.17.124.243
 Zabbix Agent - Window : 172.17.124.198
 
-- 구축 목적 -
-: Agent서버의 네트워크 하드웨어를 감시, 추적하여 장애발생을 신속하게 알리기 위한 '모니터링' 환경 구축
-
-< Zabbix의 동작 방식 >
+## Zabbix의 동작 방식
 1. Passive 방식 ( Default )
 : Server -> Agent 로 데이터를 요청하여 응답받는 방식 ( 수집 )
 - 목적지가 Agent 이므로 10050 포트 사용
@@ -18,8 +20,10 @@ Zabbix Agent - Window : 172.17.124.198
 - Agent 설정에서 ServerActive의 IP를 지정하여 데이터를 전송하는 방식
 - 능동적 Agent ( 알아서 데이터를 보냄 )
 
+***
 
-- Server 구축 -
+## Server 구축
+```
 # hostnamectl set-hostname server
 
 # mv /etc/localtime /etc/localtime.ori
@@ -76,16 +80,18 @@ php_value[date.timezone] = Asia/Seoul
 
 # systemctl start zabbix-server zabbix-agent rh-php72-php-fpm
 # systemctl enable zabbix-server zabbix-agent rh-php72-php-fpm
+```
 
+- **오류 발생시 vi /var/log/zabbix/zabbix_server.log 에서 zabbix log 확인**
 
-*** 오류 발생시 vi /var/log/zabbix/zabbix_server.log 에서 zabbix log 확인 ***
+- **재부팅 한번 해주어야 server 포트가 정상적으로 올라옴**
 
-* 재부팅 한번 해주어야 server 포트가 정상적으로 올라옴
+***
 
-- TEST -
+## TEST
 1.
 Zabbix server(10051), agent(10050), mysql(3306), httpd(80) 다 정상적으로 포트 올라와있는지 확인
-
+```
 # netstat -plunt
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
@@ -100,7 +106,7 @@ tcp6       0      0 :::22                   :::*                    LISTEN      
 tcp6       0      0 ::1:25                  :::*                    LISTEN      1187/master         
 tcp6       0      0 :::10050                :::*                    LISTEN      860/zabbix_agentd   
 tcp6       0      0 :::10051                :::*                    LISTEN      12691/zabbix_server 
-
+```
 
 2.
 홈페이지에 172.17.124.244/zabbix ( Zabbix Server IP ) 입력 후 정상 접속 확인
@@ -131,10 +137,11 @@ Language 언어설정 및 Theme 스킨 테마 설정
 7. 모니터링 -> 호스트
 Zabbix server의 상태에 초록불이 들어오면 서버 환경 구성 완료
 
+***
+**★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★**
+***
 
-★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★
-
-- 참고 -
-https://cloudest.oopy.io/posting/003
-https://www.zabbix.com/download?zabbix=5.0&os_distribution=centos&os_version=7&db=mysql&ws=apache
-https://foxydog.tistory.com/15
+## 참고
+- https://cloudest.oopy.io/posting/003
+- https://www.zabbix.com/download?zabbix=5.0&os_distribution=centos&os_version=7&db=mysql&ws=apache
+- https://foxydog.tistory.com/15
