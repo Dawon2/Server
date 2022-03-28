@@ -103,7 +103,7 @@ https://notify-api.line.me/api/notify
 ```
 관리 -> 유저
 ```
-	- Admin 클릭 - 추가
+	- Admin 클릭 -> 추가
 
 	- 연락방법
 ```
