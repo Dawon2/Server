@@ -1,14 +1,17 @@
-- IP -
+# keepalived 구축
+
+## 구축 목적
+: Proxy 서버에 문제가 생겼을때 이중화를 통하여, BACKUP서버로 바로 트래픽을 넘겨 받아 정상적인 서버 운영을 하기 위하여 ( failover )
+
+### IP
 VIP : 172.17.124.240 - Keepalived
 HA 1 : 172.17.124.241
 HA 2 : 172.17.124.242
 WEB 1 : 172.17.124.243
 WEB 2 : 172.17.124.244
 
-- 구축 목적 -
-: Proxy 서버에 문제가 생겼을때 이중화를 통하여, BACKUP서버로 바로 트래픽을 넘겨 받아 정상적인 서버 운영을 하기 위하여 ( failover )
-
-< keepalived 구축 >
+## keepalived 구축
+```
 # yum -y install keepalived
 # yum -y install psmisc ( killall 명령어를 위해 )
 
@@ -109,11 +112,13 @@ vrrp_instance VI_1 {
 * 오류 발생시 참고
 # vi /var/log/messages
 # systemctl status keepalived
+```
 
-- TEST -
-1.
+## TEST
+
+- 1. ip a 명령어를 통해 HAproxy 서버와 VIP가 잘 들어와있는지 확인
+```
 # ip a
-: ip a 명령어를 통해 HAproxy 서버와 VIP가 잘 들어와있는지 확인
 
 <MASTER>
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
@@ -132,10 +137,10 @@ vrrp_instance VI_1 {
        valid_lft forever preferred_lft forever
     inet6 fe80::526b:8dff:feed:eb88/64 scope link 
        valid_lft forever preferred_lft forever
-
-2.
+```
+- 2. 서비스를 내렸을때 정상적으로 BACKUP서버 쪽으로 Failover 되는지 확인 ( HAproxy )
+```
 # systemctl stop keepallived
-: 서비스를 내렸을때 정상적으로 BACKUP서버 쪽으로 Failover 되는지 확인
 
 <MASTER>
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
@@ -154,17 +159,18 @@ vrrp_instance VI_1 {
        valid_lft forever preferred_lft forever
     inet6 fe80::526b:8dff:feed:eb88/64 scope link 
        valid_lft forever preferred_lft forever
-
-3.
+```
+- 3. 위와 동일하게 확인 ( keepalived )
+```
 # systemctl stop haproxy
 : 위와 동일하게 확인
+```
+- 4. WEB에서 Proxy서버가 정상적으로 작동되는지, 내렸을때도 VIP로 접속했을때 잘 올라오는지 확인
 
-4. 
-WEB에서 Proxy서버가 정상적으로 작동되는지, 내렸을때도 VIP로 접속했을때 잘 올라오는지 확인
+***
+**★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★**
+***
 
-
-★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★
-
-- 참고 -
-keepalive 구축 설명 : https://www.nakjunizm.com/2020/02/20/haproxy/
-		   https://springboot.cloud/24
+## 참조
+- https://www.nakjunizm.com/2020/02/20/haproxy/
+- https://springboot.cloud/24
