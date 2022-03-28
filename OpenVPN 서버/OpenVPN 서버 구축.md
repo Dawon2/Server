@@ -177,7 +177,7 @@ net.ipv4.ip_forward = 1
 
 # cp /etc/openvpn/easy-rsa/pki/issued/dw.crt /etc/openvpn/easy-rsa/keys
 # cp /etc/openvpn/easy-rsa/pki/private/dw.key /etc/openvpn/easy-rsa/keys
-
+```
 **2. 키 이동**
 SFTP 프로그램을 이용하여 Client(window)에 C:\Program Files\OpenVPN안에 keys 폴더 생성 후
 ca.crt, dw.crt, dw.key 등 파일 이동
