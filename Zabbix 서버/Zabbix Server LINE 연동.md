@@ -51,16 +51,17 @@ https://notify-api.line.me/api/notify
 ### Zabbix 홈페이지 설정
 
 1.
-- xml 파일을 통해 작성
+**- xml 파일을 통해 작성**
+```
 관리 -> 미디어타입
-
+```
 가져오기로 zbx_Line_mediatypes_5.0.xml ( 미디어 타입 설정 파일 ) 가져오기
 > [Zabbix Line 연동 파일!][link]
 
 [link]: https://github.com/Dawon2/Server-Practice/tree/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20LINE%20%EC%97%B0%EB%8F%99%20%ED%8C%8C%EC%9D%BC
 
 
-- 문제 발생시 수동 작성
+**- 문제 발생시 수동 작성**
 
 	- 연락 방법
 ```
