@@ -173,5 +173,5 @@ listen stats
 ***
 
 ## 참조
-https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#3.1
-https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
+- https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#3.1
+- https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
