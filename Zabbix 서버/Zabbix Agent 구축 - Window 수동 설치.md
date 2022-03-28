@@ -10,6 +10,10 @@ Zabbix Agent - Window : 172.17.124.198
 ## Agent 구축
 
 **1. 먼저 설치파일 다운로드 진행 !!**
+> [Zabbix Window Agent 설치파일!][link]
+
+[link]: https://github.com/Dawon2/Server-Practice/tree/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20Agent%20-%20Window%20%EC%84%A4%EC%B9%98%ED%8C%8C%EC%9D%BC
+
 > https://www.zabbix.com/download_agents?version=5.4&release=5.4.10&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0
 
 
