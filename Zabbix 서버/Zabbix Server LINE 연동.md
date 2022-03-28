@@ -80,8 +80,9 @@ https://notify-api.line.me/api/notify
 	
 
 - Message templates
+```
 장애 , Problem recovery , Problem update , 디스커버리 , Autoregistration 추가
-
+```
 ***
 
 **2. 액션 작성**
