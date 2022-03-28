@@ -1,7 +1,10 @@
-- 구축 목적 -
+# Zabbix Server LINE 연동
+
+## 구축 목적
 : Zabbix Server로 부터 모니터링 중 문제되는 현상이 발생했을때 LINE 으로 메세지를 트리거 해주기 위해
 
-- LINE 연동 구축 -
+## LINE 연동 구축
+```
 # vi /usr/lib/zabbix/alertscripts/zbxln.sh
 ( alertscripts 밑에 새로운 쉘 스크립트 생성 )
 -----------------------------------------------------
@@ -43,13 +46,15 @@ https://notify-api.line.me/api/notify
 
 4. 토큰 생성 완료 ( 따로 복사해서 저장 )
 -----------------------------------------------------
+```
 
-- Zabbix 홈페이지 설정 -
+### Zabbix 홈페이지 설정
 
 1.
 관리 -> 미디어타입
 
 가져오기로 zbx_Line_mediatypes_5.0.xml ( 미디어 타입 설정 파일 ) 가져오기
+-> 
 
 <문제 발생시 수동 작성>
 - 연락 방법 -
