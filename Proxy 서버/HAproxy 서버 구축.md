@@ -1,14 +1,19 @@
-- IP -
+# HAproxy 서버 구축
+
+## 구축 목적
+: 2개의 WEB서버의 트래픽을 효율적으로 분산하기 위하여 ( 로드밸런싱 )
+
+### IP
 VIP : 172.17.124.240 - Keepalived
 HA 1 : 172.17.124.241
 HA 2 : 172.17.124.242
 WEB 1 : 172.17.124.243
 WEB 2 : 172.17.124.244
 
-- 구축 목적 -
-: 2개의 WEB서버의 트래픽을 효율적으로 분산하기 위하여 ( 로드밸런싱 )
+## 완전 기본서버일때만 설정
 
--기본 네트워크 설정-
+### 기본 네트워크 설정
+```
 # vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
 ex)
@@ -23,8 +28,10 @@ NETMASK=255.255.255.0
 
 # vi /etc/resolv.conf
 nameserver 8.8.8.8
+```
 
--기본 시간 설정-
+### 기본 시간 설정
+```
 # yum -y install ntp
 # vi /etc/ntp.conf
 21 server time.google.com iburst
@@ -35,8 +42,10 @@ nameserver 8.8.8.8
 # systemctl enable ntpd
 # ntpq -p ( 잘 들어갔는지 확인 )
 # date ( 확인 )
+```
 
-< HAProxy 구축 >
+## HAProxy 구축
+```
 # yum -y install gcc openssl openssl-devel pcre-static pcre-devel systemd-devel
 # yum -y install wget
 
@@ -153,13 +162,16 @@ listen stats
 
 # systemctl start haproxy
 # systemctl enable haproxy
+```
 
-- TEST -
+## TEST
 1.
 WEB에서 HAproxy 주소를 입력하였을때 정상적으로 로드밸런싱 되는지 확인
 
-★ 정상적으로 작동된다면 HAproxy 구축 완료 ! ★
+***
+**★ 정상적으로 작동된다면 HAproxy 구축 완료 ! ★**
+***
 
-- 참고 -
+## 참고
 설정파일 찾는곳 : https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#3.1
 	          https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
