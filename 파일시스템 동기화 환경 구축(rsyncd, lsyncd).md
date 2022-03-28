@@ -101,7 +101,7 @@ sync {
 2. 접속을 허용할 Backup 서버에서 공개키 리스트(authorized_keys)를 생성하고 Master서버의 공개키(id_rsa.pub) 내용을 넣어준다.
 3. 이제 Master 서버에서 개인키(id_rsa)를 통하여 Backup서버에 접속이 가능하다.
 
-**Master 서버에서 개인키로 데이터를 암호화하고 Backup 서버에서 공개키로 복호화**
+**-> Master 서버에서 개인키로 데이터를 암호화하고 Backup 서버에서 공개키로 복호화**
 
 - 디렉토리 및 파일 권한 변경!
 ```
