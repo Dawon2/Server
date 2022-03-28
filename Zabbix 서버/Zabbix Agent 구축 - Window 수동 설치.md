@@ -9,13 +9,13 @@ Zabbix Agent - Window : 172.17.124.198
 
 ## Agent 구축
 
-1. 먼저 설치파일 다운로드 진행 !!
+**1. 먼저 설치파일 다운로드 진행 !!**
 > https://www.zabbix.com/download_agents?version=5.4&release=5.4.10&os=Windows&os_version=Any&hardware=amd64&encryption=OpenSSL&packaging=MSI&show_legacy=0
 
 
-2. C:\zabbix 에 폴더 이름변경 후 안에 압축 해제
+**2. C:\zabbix 에 폴더 이름변경 후 안에 압축 해제**
 
-3. C:\zabbix\conf 경로에서 zabbix_agentd.conf 파일을 워드패드로 실행시켜서 내용 수정
+**3. C:\zabbix\conf 경로에서 zabbix_agentd.conf 파일을 워드패드로 실행시켜서 내용 수정**
 ```
 -----------------------------------------------------------------------------------------------
 LogFile=c:\zabbix\zabbix_agentd.log [디폴트는 C:\ 되어 있으므로 설치된 경로로 변경하는 것을 권고]
@@ -30,7 +30,7 @@ HostnameItem [ 주석 처리 ]
 -----------------------------------------------------------------------------------------------
 ```
 
-4. cmd 실행
+**4. cmd 실행**
 
 C:\Users\Administrator > cd c:\zabbix\bin
 ( 경로 이동 )
@@ -38,16 +38,16 @@ C:\Users\Administrator > cd c:\zabbix\bin
 c:\zabbix\bin > zabbix_agentd.exe -i -c c:\zabbix\conf\zabbix_agentd.conf
 ( zabbix agent 파일로 설치를 진행하고 config 파일을 넣어준다 )
 
-5. 서비스 설정
+**5. 서비스 설정**
 
 윈도우 + R -> services.msc -> Zabbix Agent 서비스 시작
 
-6. 방화벽 설정
+**6. 방화벽 설정**
 
 윈도우 + R -> firewall.cpl -> 고급 설정 -> 인바운드 규칙 + 새 규칙 ->
 포트 선택 -> TCP + 특정 로컬 포트 10050 -> 연결 허용 -> 도메인, 개인, 공용 체크 -> 이름 - Zabbix Agent 포트 허용 + 설명 - 포트 : 10050
 
-7. Zabbix WEB 설정
+**7. Zabbix WEB 설정**
 
 - Zabbix 서버 홈페이지로 이동
 
