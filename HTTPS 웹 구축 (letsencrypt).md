@@ -45,14 +45,14 @@ HI, Xeno Web!!
 ----------------------------------
 ( 이미지 넣는 방법 예시 )
 
-
-★ 웹 구축 완료 ★
 ```
+**★ 웹 구축 완료 ★**
+
 ### WEB TEST
 - 해당 웹 서버 IP로 접속하여 웹 페이지 정상적으로 나오는지 확인!
-    <center>
-     <img src="./images/HTTPS%20%EC%9B%B9%20%EA%B5%AC%EC%B6%95/1.PNG" />
-    </center>
+<center>
+    <img src="./images/HTTPS%20%EC%9B%B9%20%EA%B5%AC%EC%B6%95/1.PNG" />
+</center>
 
 ***
 
@@ -135,9 +135,9 @@ nameserver 127.0.0.1
 ---------------------------
 ( 윗줄에 네임서버 추가 - 동일서버에서 설정하여 루프백 주소 입력 ( 다른 DNS 서버를 사용했다면 해당 DNS 서버 주소 입력 ))
 
-
-★ DNS 구축 완료 ★
 ```
+**★ DNS 구축 완료 ★**
+
 ### [DNS TEST]
 1. nslookup
    - Domain 주소
@@ -212,6 +212,9 @@ blank to select all options shown (Enter 'c' to cancel): 1
 # systemctl restart httpd
 ( 위의 내용들 전부 완료한후에 아파치 재시작 후 인증서 적용 확인 )
 ```
+
+**★ Letsencrypt 구축 완료 ★**
+
 ### Letsencrypt TEST
 - 웹 접속하여 인증서 정상적으로 적용되었는지 확인
 
