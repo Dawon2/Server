@@ -147,6 +147,7 @@ nameserver 127.0.0.1
    named-checkzone 10.79.101.in-addr.arpa /var/named/fsdc.co.kr.rev
    ( 설정 파일 정상여부 테스트 )
 
+***
 
 ### [ Letsencrypt 설치 및 적용 ]
 ```
@@ -226,9 +227,6 @@ blank to select all options shown (Enter 'c' to cancel): 1
 </center>
 
 
-***
-
-
 ### ++ 인증서 갱신 및 자동갱신
 ```
 # certbot renew --dry-run
@@ -249,7 +247,7 @@ blank to select all options shown (Enter 'c' to cancel): 1
 
 ```
 
-
+***
 
 - 인증서 생성 오류
   
