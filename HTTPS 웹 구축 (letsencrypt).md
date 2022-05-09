@@ -247,6 +247,33 @@ blank to select all options shown (Enter 'c' to cancel): 1
 
 ```
 
+### ++ HTTP -> HTTPS 리다이렉트 설정
+```
+# vi /etc/httpd/conf/httpd.conf
+--------------------------------------------------------
+55 LoadModule rewrite_module modules/mod_rewrite.so
+58 Include conf.d/virtual.conf
+--------------------------------------------------------
+55 : rewrite 모듈 사용
+58 : vhost 설정을 하였을시에 vhost conf 파일 경로 입력 ( 현재경로 /etc/httpd 기준 )
+
+
+# vi /etc/httpd/conf.d/virtual.conf
+---------------------------------------------------------------
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+---------------------------------------------------------------
+: 해당 vhost 설정 아래부분에 위 내용 추가
+-> 1. Rewrite 모듈엔진 ON , 2. HTTPS가 off이면 , 3. https:// 로 리다이렉트
+( 자세한 설정 내용은 맨 아래 참조사이트 참고 )
+
+
+# systemctl restart httpd
+( 아파치 리스타트 )
+
+```
+
 ***
 
 - 인증서 생성 오류
@@ -272,3 +299,6 @@ Unable to find a virtual host listening on port 80 which is currently needed for
 
 **HTTPS 동작 방식**
 - https://jaeseongdev.github.io/development/2021/07/02/HTTPS,SSL,TLS/
+
+**HTTPS 리다이렉트**
+- https://cheershennah.tistory.com/157
