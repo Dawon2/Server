@@ -276,14 +276,21 @@ blank to select all options shown (Enter 'c' to cancel): 1
 
 ***
 
-- 인증서 생성 오류
-  
+**인증서 생성 오류 해결!**
+```
+[Error 1]  
 Unable to find a virtual host listening on port 80 which is currently needed for Certbot to prove to the CA that you control your domain. Please add a virtual host for port 80.
 
 -> httpd.conf 파일에 서버네임이 잘 등록되었는지 확인
-
 -> Virtual host 파일 잘 등록되었는지 확인
 
+[Error 2]
+SSLError: ("bad handshake: Error([('SSL routines', 'ssl3_get_server_certificate', 'certificate verify failed')],)",)
+
+-> --no-verify-ssl 옵션을 붙여서 실행
+
+ex) # certbot --apache certonly --no-verify-ssl
+```
 
 ***
 **★ 정상적으로 작동된다면 HTTPS 웹 구축 완료 ! ★**
