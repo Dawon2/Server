@@ -24,7 +24,7 @@
 
 # vi zabbix_settings.py
 -----------------------------------------
-3 tg_key = "5276296542:AAGvHERGRs2VOo-WMUNYIxfH6C20KL9ndwc"
+3 tg_key = "api key 입력"
   ( telegram api 키 입력 )
 
 6 zbx_tg_tmp_dir = "/zbxtg/" + zbx_tg_prefix
@@ -36,11 +36,15 @@
 ( 생성한 봇 사용자 명 입력 )
 26 zbx_basic_auth_pass = "zabbix"
 
+43 zbx_tg_daemon_enabled_ids = [chat id 입력, ]
+44 zbx_tg_daemon_enabled_users = ["Dwzbx_bot", ]
+
 47 zbx_db_host = "localhost"
 48 zbx_db_database = "zabbix"
 49 zbx_db_user = "zabbix"
 50 zbx_db_password = "zabbix"
 -----------------------------------------
+( chat id는 Telegram에서 IDBot 검색해서 채팅창에 /getid 입력하면 추출 할 수 있음 )
 
 # mv Zabbix-in-Telegram/* /usr/lib/zabbix/alertscripts/
 
@@ -54,20 +58,29 @@
 -----------------------------------------
 
 # pip install requests
+# pip install telegram
+# pip install python-telegram-bot
+
 ```
+- 웹에서 확인
+  
+**# https://api.telegram.org/bot[API 키]/getUpdates**
+
+> ( {"ok":true,"result" 나오면 정상 )
+
 
 ### Zabbix 웹 설정
 
 1.
-관리 -> 유저 -> 텔레그램 선택
+관리 -> 미디어 타입 -> 텔레그램 선택
 
 - 연락방법
 ```
 종류 : 스크립트
 스크립트 이름 : zbxtg.py
-스크립트 파라미터 : (ALTER SENDTO)
-		 (ALTER SUBJECT)
-		 (ALTER MESSAGE)
+스크립트 파라미터 : {ALERT.SENDTO}
+		 		   {ALERT.SUBJECT}
+		 		   {ALERT.MESSAGE}
 ```
 
 2.
@@ -108,8 +121,9 @@ ex ) python zbxtg.py @dwdwdw456 hi hihihihi
 ```
 관리 -> 미디어타입
 
-telegram 테스트
-수신처 api 키 입력해서 테스트
+- telegram 테스트- 
+수신처 : 텔레그램 계정명
+입력해서 테스트
 ```
 
 ***
