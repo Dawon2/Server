@@ -122,7 +122,7 @@ tcp6       0      0 :::10051                :::*                    LISTEN      
    User : zabbix
    password : zabbix
 
-4. Zabbix server name : Zabbix monitoring오후 6:04 2022-02-15
+4. Zabbix server name : Zabbix monitoring
 
 5. 초기 로그인 값
 Username : Admin
@@ -135,7 +135,7 @@ Language 언어설정 및 Theme 스킨 테마 설정
 Zabbix server의 상태에 초록불이 들어오면 서버 환경 구성 완료
 
 ***
-**★ 정상적으로 작동된다면 Keepalive 구축 완료 ! ★**
+**★ 정상적으로 작동된다면 Zabbix 서버 구축 완료 ! ★**
 ***
 
 ## 참고
