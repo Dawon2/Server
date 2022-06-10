@@ -176,6 +176,22 @@ UUID=1df276ee-1448-4274-b738-32c7bc5cdb8f swap                    swap    defaul
 
 * xfs_growfs /data2
 ( 파일시스템에 lv 용량이 적용이 안됬을때 사용! )
+
+
+```
+**++ LV 스트라이프 구성**
+- 기존 lv 생성은 리니어 타입이며 스트라이프 타입은 io를 디스크를 묶어서 분산 처리 가능
+
+```
+# lvcreate -n lv1 -i 3 -l 100%FREE vg1
+( -i 명령어로 몇개의 디스크를 묶어서 io 부하를 분산할건지 결정 )
+ex ) lv가 6개있으면 3개 3개 씩 부하분산
+
+# lvs -v --segments
+  datalv datavg -wi-ao----    0   <2.93t    6 striped 64.00k    0
+  metalv metavg -wi-a-----    0  <10.00g    1 linear      0     0
+( 이런식으로 striped, linear 타입을 확인 할 수 있음. )
+
 ```
 
 ## TEST
