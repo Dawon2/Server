@@ -73,9 +73,9 @@ https://notify-api.line.me/api/notify
 이름 : Line Notify_shell
 종류 : 스크립트
 스크립트 이름 : zbxln.sh ( 전에 만든 스크립트 파일명과 동일 )
-스크립트 파라미터 : (ALERT_SENDTO)
-		 (ALERT_SUBJECT)
-		 (ALERT_MESSAGE)
+스크립트 파라미터 : {ALERT.SENDTO}
+		 		   {ALERT.SUBJECT}
+		 		   {ALERT.MESSAGE}
 ```
 	
 
