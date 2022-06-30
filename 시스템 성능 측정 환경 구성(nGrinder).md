@@ -6,7 +6,10 @@
 
 ## nGrinder 구조
 
-![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/1.PNG)
+![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/1.PNG)
+   <center>
+     <img src="./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/1.PNG" />
+   </center>
 
 ### 주요 구성 요소
 * Controller
