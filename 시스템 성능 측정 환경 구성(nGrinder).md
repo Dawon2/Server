@@ -7,9 +7,7 @@
 ## nGrinder 구조
 
 ![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/1.PNG)
-   <center>
-     <img src="./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/1.PNG" />
-   </center>
+
 
 ### 주요 구성 요소
 * Controller
@@ -102,13 +100,13 @@ Hello World!!
   
   -> 초기 계정 - ID : admin , PW : admin ( 한국어 접속 가능 )
 
-![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/2.PNG)
+![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/2.PNG)
 
 < 초기 설정 >
 1. 사용자 정보 - 비밀번호 변경 에서 초기 패스워드 변경
 2. 사용자 관리 - admin을 제외한 나머지 계정 삭제
 
-![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/3.PNG)
+![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/3.PNG)
 
 
 ***
@@ -132,7 +130,7 @@ Hello World!!
 
 * 실행 후 컨트롤러 웹에 에이전트 관리로 들어가서 에이전트가 정상적으로 올라왔는지 확인 ( 승인됨 확인 )
 ```
-![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/4.PNG)
+![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/4.PNG)
 
 ***
 
@@ -144,18 +142,18 @@ Hello World!!
 1. 테스트 Groovy 스크립트 생성
    - 스크립트 - 만들기 클릭하여 스크립트 생성
 
-![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/5.PNG)
+![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/5.PNG)
 - google.com 의 GET 요청 테스트
 
 
 2. 성능 테스트
    - 테스트 생성
-  ![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/6.PNG)
+  ![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/6.PNG)
   - 에이전트 수 , 사용자 수 , 스크립트 , 테스트기간 등 필요한 설정을 추가하여 생성
 
 3. 테스트 결과 확인
    - 테스트 완료 후 상세 보고서 클릭
-    ![image](/Server/images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/7.PNG)
+    ![image](./images/%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%ED%99%98%EA%B2%BD%20%EA%B5%AC%EC%84%B1(nGrinder)/7.PNG)
 
 ***
 **★ 정상적으로 작동된다면 nGrinder 설치 완료 ! ★**
