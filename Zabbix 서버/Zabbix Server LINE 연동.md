@@ -22,8 +22,7 @@ notice="
 ${subject}
 ${message}
 "
-curl -X POST -H "Authorization: Bearer ${TOKEN}" -F "message=${notice}" 
-https://notify-api.line.me/api/notify
+curl -X POST -H "Authorization: Bearer ${TOKEN}" -F "message=${notice}" https://notify-api.line.me/api/notify
 -----------------------------------------------------
 
 # chmod +x zbxln.sh
