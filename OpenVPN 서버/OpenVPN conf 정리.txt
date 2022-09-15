@@ -37,6 +37,9 @@ ex ) VPN Server : 172.27.0.1 , Client 1 : 172.27.0.2
 client-to-client
 # OpenVPN Client들끼리 OpenVPN Server를 통해 VPN 터널링 통신 가능
 
+duplicate-cn
+# 인증서를 사용하는 클라이언트 중복 가능
+
 keepalive 10 120
 # 매 10초마다 Ping을 보내 120초동안 수신이 없으면 연결이 끊어진것으로 간주
 
