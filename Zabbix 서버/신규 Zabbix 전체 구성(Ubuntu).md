@@ -52,8 +52,8 @@ https -> http 로 변경
 ( MYSQL 설정 )
 -----------------------------------------------------------------------------------------------
 > CREATE DATABASE zabbix CHARACTER SET utf8 collate utf8_bin;
-> CREATE USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-> GRANT ALL ON zabbix.* TO 'zabbix'@'localhost' IDENTIFIED BY 'zabbix';
+> CREATE USER 'zabbix'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zabbix';
+> grant all privileges on zabbix.* to zabbix@localhost;
 > exit;
 -----------------------------------------------------------------------------------------------
 
@@ -63,11 +63,6 @@ https -> http 로 변경
 129  DBPassword=zabbix
 -------------------------
 ( 설정한 DB 패스워드 입력 )
-
-# systemctl restart zabbix-server zabbix-agent
-# systemctl enable zabbix-server zabbix-agent
-
-* Zabbix 서버 정상적으로 안올라오면 Log 확인 및 재부팅
 
 
 # systemctl stop mysql
@@ -273,8 +268,11 @@ Password : ( 위에서 설정한 패스워드 입력 )
 # lsof | grep /data
 ( 정상적으로 mysql 프로세스들이 올라와있는지 확인 )
 
+# systemctl restart zabbix-server zabbix-agent
+# systemctl enable zabbix-server zabbix-agent
+* Zabbix 서버 정상적으로 안올라오면 Log 확인 및 재부팅
 
-* Zabbix 서버가 정상적으로 안올라오면 재부팅 진행
+
 ---
 # reboot
 ---
@@ -301,6 +299,7 @@ LANGUAGE=”ko_KR:ko:en_US:en”
 -----------------------------------------
 
 # export LANG=ko_KR.utf8
+( 서버 전역 한글로 변환 - 필요하면 진행 )
 
 # vi /usr/share/zabbix/include/locales.inc.php
 ( /Korean 검색해서 display -> true 인지 확인 )
