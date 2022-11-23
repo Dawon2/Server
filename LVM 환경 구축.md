@@ -179,6 +179,27 @@ UUID=1df276ee-1448-4274-b738-32c7bc5cdb8f swap                    swap    defaul
 
 
 ```
+**++ LVM 축소**
+- 먼저 기존 마운트 디렉토리의 데이터를 백업하고 작업 진행 !
+```
+# cd /data
+# tar cvfz ./* /root/data.tar.gz
+
+# umount /data
+
+# e2fsck -f /dev/datavg/datalv
+( 파일시스템 점검 )
+
+# lvreduce -L 50GB /dev/datavg/datalv
+( 해당하는 lv를 50GB 만큼 축소시킨다. )
+
+# mount /data
+( 재 마운트 )
+
+# tar xvfz /root/data.tar.gz -C /data/
+
+
+```
 **++ LV 스트라이프 구성**
 - 기존 lv 생성은 리니어 타입이며 스트라이프 타입은 io를 디스크를 묶어서 분산 처리 가능
 
