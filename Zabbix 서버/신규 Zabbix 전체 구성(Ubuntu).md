@@ -54,9 +54,12 @@ https -> http 로 변경
 > CREATE DATABASE zabbix CHARACTER SET utf8 collate utf8_bin;
 > CREATE USER 'zabbix'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zabbix';
 > grant all privileges on zabbix.* to zabbix@localhost;
+> set global log_bin_trust_function_creators = 1;
 > exit;
 -----------------------------------------------------------------------------------------------
 
+「SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client」
+-> 웹 초기접속 중 해당 에러 발생 시 mysql_native_password 부분 설정 재 확인
 
 # vi /etc/zabbix/zabbix_server.conf
 -------------------------
@@ -264,6 +267,9 @@ drwx------ 6 mysql mysql 4096  5월 10 14:20 /var/lib/mysql
 Password : ( 위에서 설정한 패스워드 입력 )
 * 패스워드 입력후 따로 출력되는게 없으면 정상
 
+* zcat 후 mysql 재설정
+> set global log_bin_trust_function_creators = 1;
+
 
 # lsof | grep /data
 ( 정상적으로 mysql 프로세스들이 올라와있는지 확인 )
@@ -322,6 +328,7 @@ LANGUAGE=”ko_KR:ko:en_US:en”
 6. 초기 계정 : Admin , zabbix
 
 ***
+**<LINE or Telegram 연동>**
 
 ### [ Telegram 연동 ]
 
@@ -502,6 +509,135 @@ telegram - 테스트
 
 ***
 
+### [ LINE 연동 ]
+```
+# vi /usr/lib/zabbix/alertscripts/zbxln.sh
+( alertscripts 밑에 새로운 쉘 스크립트 생성 )
+-----------------------------------------------------
+#!/bin/bash
+# LINE Notify Token - Media > "Send to".
+TOKEN="$1"
+# {ALERT.SUBJECT}
+subject="$2"
+# {ALERT.MESSAGE}
+message="$3"
+# Line Notify notice message.
+notice="
+${subject}
+${message}
+"
+curl -X POST -H "Authorization: Bearer ${TOKEN}" -F "message=${notice}" https://notify-api.line.me/api/notify
+-----------------------------------------------------
+
+# chmod +x zbxln.sh
+( 실행 권한 추가 )
+
+# vi /etc/zabbix/zabbix_server.conf
+-----------------------------------------------------
+523 AlertScriptsPath=/usr/lib/zabbix/alertscripts
+( 파일 경로와 일치하는지 확인 )
+-----------------------------------------------------
+
+
++
+-----------------------------------------------------
+그룹이 없다면 -> 그룹 생성 및 토큰 발급
+-----------------------------------------------------
+1. 라인 접속 및 그룹 만들기
+
+2. Line Notify를 멤버로 추가 ( 메세지 송신자 )
+
+3. https://notify-bot.line.me/en/ 들어가서 로그인 후 마이페이지 -> 하단 Generate Token -> 토큰 네임 기입 + 앞서 생성한 그룹 클릭
+
+4. 토큰 생성 완료 ( 따로 복사해서 저장 )
+-----------------------------------------------------
+```
+
+### Zabbix 홈페이지 설정
+
+**1. 미디어타입 가져오기**
+- xml 파일을 통해 작성
+```
+관리 -> 미디어타입
+```
+가져오기로 zbx_Line_mediatypes_5.0.xml ( 미디어 타입 설정 파일 ) 가져오기
+> [Zabbix Line 연동 파일!][link]
+
+[link]: https://github.com/Dawon2/Server-Practice/tree/main/Zabbix%20%EC%84%9C%EB%B2%84/Zabbix%20LINE%20%EC%97%B0%EB%8F%99%20%ED%8C%8C%EC%9D%BC
+```
+----------------------------------------------------------------------------
+```
+
+**- 문제 발생시 수동 작성**
+
+- 연락 방법
+
+```
+이름 : Line Notify_shell
+종류 : 스크립트
+스크립트 이름 : zbxln.sh ( 전에 만든 스크립트 파일명과 동일 )
+스크립트 파라미터 : {ALERT.SENDTO}
+		 		   {ALERT.SUBJECT}
+		 		   {ALERT.MESSAGE}
+```
+	
+
+- Message templates
+```
+장애 , Problem recovery , Problem update , 디스커버리 , Autoregistration 추가
+```
+***
+
+**2. 액션 작성**
+```
+설정 -> 액션 -> 왼쪽 위 Trigger actions -> 액션작성
+```
+	- 액션
+
+이름 : Line Action
+( 조건 X , 모든 액션에 대해서 )
+
+	- 오퍼레이션
+
+오퍼레이션 : 사용자에게 메세지를 송신 : Admin
+( 액션 발동 시 어디로 어떤 행동을 취할건지 선택 )
+
+복구시, 갱신시 = 필요시에 추가
+
+***
+
+**3. 토큰 연결**
+```
+관리 -> 유저
+```
+	- Admin 클릭 -> 추가
+
+	- 연락방법
+```
+종류 : Line Notify_shell
+수신처 : Line 토큰 입력
+```
+***
+
+**TEST**
+
+1.
+관리 -> 미디어타입 
+
+Line Notify_shell 테스트 클릭해서 생성 한 그룹으로 메세지 잘 오는지 확인
+
+2.
+Zabbix Server에서
+```
+# cd /usr/lib/zabbix/alertscripts/
+
+# ./zbxln.sh [토큰값] $SUBJECT $MESSAGE
+  ( ./zbxln.sh  라인 토큰값, 제목, 메세지 )
+```
+-> 그룹으로 메세지 잘 오는지 확인
+
+
+
 ### [ Zabbix 그래프 한글패치 ]
 * 먼저 글꼴 하나 다운로드 받기 ( ex 나눔글꼴 - NanumGothic.ttf )
   
@@ -545,6 +681,8 @@ telegram - 테스트
 ```
 * Agent 서버로 접속
 
+1. yum / apt 설치
+
 # apt -y install zabbix-agent
 
 # vi /etc/zabbix/zabbix_agentd.conf
@@ -558,6 +696,19 @@ telegram - 테스트
 ( Server에 Zabbix server IP 입력 , Hostname 주석 후 HostnameItem 주석 해제 HostMetadata에 Linux 포함하여 입력 )
 
 # systemctl restart zabbix-agent
+
+2. 패키지 설치 ( rpm / deb 등 )
+
+* 패키지 파일 업로드 후 진행
+
+# rpm -Uvh zabbix-agent-6.0.7-1.el7.x86_64.rpm
+*  해당 패키지 설치 중 아래 의존성 문제 발생 시 
+error: Failed dependencies:
+        libpcre2-8.so.0()(64bit) is needed by zabbix-agent-6.0.7-1.el7.x86_64
+-> yum -y install pcre2-devel (설치)
+
+# 이후 위와 동일하게 conf 설정 및 서비스 리스타트 진행
+
 ```
 
 **TEST**
