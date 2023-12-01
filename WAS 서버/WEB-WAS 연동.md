@@ -1,7 +1,7 @@
 # WEB-WAS 연동
 * WEB : apache , WAS : tomcat
 * WEB WAS 각각 서버 생성하여 apache , tomcat 설치 후 진행
-* 8009 Port Open 필요
+* WEB -> WAS 8009 Port Open 필요
 
 ***
 
@@ -23,7 +23,7 @@
 # cd native
 # ./buildconf.sh
 ( apr , apr-util 등의 라이브러리를 빌드 )
-# ./configure --with-apxs=/bin/apxs
+# ./configure --with-apxs=/usr/local/apache2/bin/apxs
 # make && make install
 
 # ll /usr/local/apache2/modules/mod_jk.so
