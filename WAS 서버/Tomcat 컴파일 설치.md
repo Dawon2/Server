@@ -34,7 +34,7 @@ export JAVA_HOME PATH CLASSPATH
 # cd /etc/alternatives/java
 * 업그레이드 시 - # rm java
 
-# ln -s java /usr/local/src/jdk-21/bin/java
+# ln -s /usr/local/src/jdk-21/bin/java java
 # ll /etc/alternatives/java -> /usr/local/src/jdk-21/bin/java
 ( 링크 설정 )
 
