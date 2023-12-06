@@ -3,6 +3,8 @@
 * JAVA(openjdk)가 있는지 확인 후 없으면 아래 JAVA 설치부터 진행
 > java -version 명령어로 확인
 
+***
+
 ### [ 0. JAVA 설치 ]
 ```
 * java 버전을 업그레이드 할때도 동일
@@ -90,6 +92,8 @@ WantedBy=multi-user.target
 # netstat -plunt
 ( 프로세스 잘 떴는지 , Port 잘 올라왔는지 확인 )
 ```
+
+***
 
 ### [ 2. 웹 접속 확인 ]
 > 인터넷에 아이피 입력하여 정상 접속 확인
